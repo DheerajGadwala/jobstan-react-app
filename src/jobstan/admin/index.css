@@ -1,0 +1,46 @@
+.wd-header {
+    color: #5a4099;
+}
+
+.wd-th {
+    background-color: #5a4099;
+    color: white;
+}
+
+.wd-approve {
+    background-color: #39e75f;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    padding: 2px 12px;
+}
+
+.wd-reject {
+    background-color: red;
+    border: none;
+    width: 100%;
+    border-radius: 8px;
+    padding: 2px 12px;
+    color: white;
+}
+
+.wd-approve:hover, .wd-reject:hover {
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.24),0 7px 10px 0 rgba(0,0,0,0.19);
+}
+
+.wd-bottom-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #5a4099;
+    border: none;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.wd-bottom-button:hover {
+    color: white;
+}
