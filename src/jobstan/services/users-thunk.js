@@ -1,19 +1,19 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {profile, logout, pendingJobSearchers, pendingJobPosters, approveUser} from "./users-service";
+import {profile, logout, pendingJobSearchers, pendingJobPosters, approveUser, login, register} from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
     'logout',
     async () => await logout()
 )
 
-export const pendingJobPostersThunk = createAsyncThunk(
-    'pendingJobPosters',
-    async () => await pendingJobPosters()
+export const pendingRecruitersThunk = createAsyncThunk(
+    'pendingRecruiters',
+    async () => await pendingRecruiters()
 )
 
-export const pendingJobSearchersThunk = createAsyncThunk(
-    'pendingJobSearchers',
-    async () => await pendingJobSearchers()
+export const pendingApplicantsThunk = createAsyncThunk(
+    'pendingApplicants',
+    async () => await pendingApplicants()
 )
 
 export const approveUserThunk = createAsyncThunk(
@@ -24,4 +24,14 @@ export const approveUserThunk = createAsyncThunk(
 export const profileThunk = createAsyncThunk(
     'profile',
     async () => await profile()
+)
+
+export const loginThunk = createAsyncThunk(
+    'login',
+    async (user) => await login(user)
+)
+
+export const registerThunk = createAsyncThunk(
+    'register',
+    async (user) => await register(user)
 )

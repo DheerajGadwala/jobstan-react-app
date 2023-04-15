@@ -4,6 +4,8 @@ import {BrowserRouter} from "react-router-dom";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import Jobstan from "./jobstan";
+import RegisterComponent from "./jobstan/register"
+import LoginComponent from "./jobstan/login"
 import CurrentUser from './jobstan/current-user';
 import usersReducer from './jobstan/services/users-reducer';
 
@@ -24,6 +26,9 @@ function App() {
                     <Routes>
                         <Route path="/*" element={<Jobstan/>}/>
                         <Route path="/home/*" element={<Jobstan/>}/>
+                        <Route path="/login" element={<LoginComponent/>}/>
+                        <Route path="/register" element={<RegisterComponent/>}/>
+
                     </Routes>
                 </div>
             </CurrentUser>

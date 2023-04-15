@@ -7,13 +7,13 @@ export const logout = async () => {
     return response.data
 }
 
-export const pendingJobSearchers = async () => {
-    const response = await api.get(`${BASE_API_URL}/pendingJobSearchers`)
+export const pendingRecruiters = async () => {
+    const response = await api.get(`${BASE_API_URL}/pendingRecruiters`)
     return response.data
 }
 
-export const pendingJobPosters = async () => {
-    const response = await api.get(`${BASE_API_URL}/pendingJobPosters`)
+export const pendingApplicants = async () => {
+    const response = await api.get(`${BASE_API_URL}/pendingApplicants`)
     return response.data
 }
 
@@ -25,4 +25,15 @@ export const approveUser = async (uid) => {
 export const profile = async () => {
     const response = await api.post(`${BASE_API_URL}/profile`)
     return response.data
+}
+
+export const login = async (user) => {
+    const response = await api.post(`${BASE_API_URL}/login`, user)
+    return response.data
+}
+
+export const register = async (user) => {
+    const response = await api.post(`${BASE_API_URL}/register`, user)
+    const newUser = response.data
+    return newUser
 }
