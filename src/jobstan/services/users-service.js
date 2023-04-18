@@ -37,3 +37,8 @@ export const register = async (user) => {
     const newUser = response.data
     return newUser
 }
+
+export const updateProfile = async (profile) => {
+    const response = await axios.put(`${BASE_API_URL}/updateProfile/${profile._id}`, profile);
+    return response.data;
+}

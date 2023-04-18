@@ -1,18 +1,18 @@
 import React, {useEffect} from "react";
 import "./index.css";
-import {logoutThunk, pendingJobPostersThunk, pendingJobSearchersThunk, approveUserThunk} from "../services/users-thunk";
+import {logoutThunk, pendingRecruitersThunk, pendingApplicantsThunk, approveUserThunk} from "../services/users-thunk";
 import {Navigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 
 const AdminComponent = () => {
-    const {logoutComp, pendingJobPosters, pendingJobSearchers} = useSelector((state) => state.users)
+    const {logoutComp, pendingRecruiters, pendingApplicants} = useSelector((state) => state.users)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(pendingJobPostersThunk())
+        dispatch(pendingRecruitersThunk())
     }, []);
     useEffect(() => {
-        dispatch(pendingJobSearchersThunk())
+        dispatch(pendingApplicantsThunk())
     }, [])
     const logoutBtnHandle = () => {
         dispatch(logoutThunk());
@@ -47,13 +47,13 @@ const AdminComponent = () => {
                     </thead>
                     <tbody>
                     {
-                        pendingJobPosters.length===0 &&
+                        pendingRecruiters.length===0 &&
                         <div>
                             No Pending NGO's to review
                         </div>
                     }
                     {
-                        pendingJobPosters.map((ngo, index) => {
+                        pendingRecruiters.map((ngo, index) => {
                             return (
                                 <tr key={ngo._id}>
                                     <th scope="row">{index + 1}</th>
@@ -93,13 +93,13 @@ const AdminComponent = () => {
                     </thead>
                     <tbody>
                     {
-                        pendingJobSearchers.length===0 &&
+                        pendingApplicants.length===0 &&
                         <div>
                             No Pending Donors to review
                         </div>
                     }
                     {
-                        pendingJobSearchers.map((donor, index) => {
+                        pendingApplicants.map((donor, index) => {
                             return (
                                 <tr key={donor._id}>
                                     <th scope="row">{index + 1}</th>

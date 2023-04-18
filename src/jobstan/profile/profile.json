@@ -1,0 +1,16 @@
+{
+  "_id": 124214,
+  "name": "Rakesh",
+  "username": "@rakeshMolakala",
+  "email": "rakesh@gmail.com",
+  "address": "137 park dr, boston, MA",
+  "phone": "7337812345",
+  "role": "APPLICANT",
+  "appUniv": "Northeastern University",
+  "appMajor": "Computer Science",
+  "appSkills": "webdev, php, machine learning",
+  "recComp": "Tesla",
+  "recCompDesc": "Electric Vehicle Company",
+  "recPositions": "Software engineer, Data Engineer"
+}
+

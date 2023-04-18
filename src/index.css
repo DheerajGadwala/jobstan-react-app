@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wd-profile-name-email>div {
+  min-width: 300px;
+}
+
+.wd-profile-name-email>div>div{
+  width: auto !important;
+  min-width: 100px !important;
+}
