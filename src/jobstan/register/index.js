@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import validator from 'validator';
 import PasswordChecklist from "react-password-checklist"
 import {registerThunk} from "../services/users-thunk";
 import {useDispatch, useSelector} from "react-redux";

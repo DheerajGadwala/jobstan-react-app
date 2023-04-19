@@ -6,6 +6,7 @@ import ProfileComponent from "./profile";
 import EditProfileComponent from "./edit-profile";
 import {Route, Routes} from "react-router";
 import ProtectedRoute from "./protected";
+import NavigationSideBar from "../navigation-sidebar";
 
 
 function Jobstan() {
@@ -18,21 +19,28 @@ function Jobstan() {
         )
     } else {
         return <>
-            <Routes>
-                <Route index element={<HomeComponent/>}/>
-                <Route path="home" element={<HomeComponent/>}/>
+            <div className="row">
+                <div className="col-2 col-lg-1 col-xl-2">
+                    <NavigationSideBar/>
+                </div>
+                <div className="col-10 col-lg-11 col-xl-10">
+                    <Routes>
+                        <Route index element={<HomeComponent/>}/>
+                        <Route path="home" element={<HomeComponent/>}/>
 
-                <Route path="/profile" element={
-                    <ProtectedRoute>
-                        <ProfileComponent/>
-                    </ProtectedRoute>
-                }/>
-                <Route path="/edit-profile" element={
-                    <ProtectedRoute>
-                        <EditProfileComponent/>
-                    </ProtectedRoute>
-                }/>
-            </Routes>
+                        <Route path="/profile" element={
+                            <ProtectedRoute>
+                                <ProfileComponent/>
+                            </ProtectedRoute>
+                        }/>
+                        <Route path="/edit-profile" element={
+                            <ProtectedRoute>
+                                <EditProfileComponent/>
+                            </ProtectedRoute>
+                        }/>
+                    </Routes>
+                </div>
+            </div>
         </>
     }
 }

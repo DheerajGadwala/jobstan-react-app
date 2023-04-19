@@ -3,6 +3,7 @@ const BASE_API_URL = 'http://localhost:4100';
 const api = axios.create({withCredentials: true});
 
 export const logout = async () => {
+    console.log("reached logout service")
     const response = await api.post(`${BASE_API_URL}/logout`)
     return response.data
 }
