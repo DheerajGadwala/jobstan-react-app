@@ -43,3 +43,8 @@ export const updateProfile = async (profile) => {
     const response = await axios.put(`${BASE_API_URL}/updateProfile/${profile._id}`, profile);
     return response.data;
 }
+
+export const getRecruiters = async (uid) => {
+    const response = await axios.get(`${BASE_API_URL}/getRecruiters/${uid}`);
+    return response.data;
+}

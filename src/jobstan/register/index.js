@@ -408,7 +408,7 @@ const RegisterComponent = () => {
                                 <div id="reg-log"
                                      className="form-text text-center mb-3 text-dark">Already
                                     Registered?&nbsp;
-                                    <a href="/login" className="fw-bold text-decoration-none"
+                                    <a href="../login" className="fw-bold text-decoration-none"
                                        style={{color: "#E7473C"}}> Login</a>
                                 </div>
                             </form>

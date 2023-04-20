@@ -33,7 +33,8 @@ const ProfileComponent = () => {
                                         alt="avatar" className="rounded-circle img-fluid"
                                         style={{width: "150px"}}/>
                                     <h5 className="my-3">{currentUser.name}</h5>
-                                    <p className="text-muted mb-1">@{currentUser.username}</p>
+                                    {!isApplicant && <p className="text-muted mb-1">@{currentUser.username}</p>}
+                                    {isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;{currentUser.appFollowing.length} Following</p>}
                                 </div>
                                 <div className="row text-muted justify-content-center">
                                     <div className="col-auto">
@@ -99,7 +100,6 @@ const ProfileComponent = () => {
                                         Profile
                                     </button>
                                 </Link>
-                                
                             </div>
                         </div>
                     </div>

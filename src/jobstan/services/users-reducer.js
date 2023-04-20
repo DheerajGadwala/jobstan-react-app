@@ -7,7 +7,9 @@ import {
     pendingApplicantsThunk,
     approveUserThunk,
     loginThunk,
-    registerThunk
+    registerThunk,
+    getAllRecruitersThunk,
+    removeFollowedRecruiter,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -19,7 +21,8 @@ const usersReducer = createSlice({
                                          logoutComp: false,
                                          currentUser: null,
                                          loading: true,
-                                         profileUser: null
+                                         profileUser: null,
+                                         allRecruiters: [],
                                      },
                                      extraReducers: {
                                          [profileThunk.pending]: (state, action) => {
@@ -62,6 +65,11 @@ const usersReducer = createSlice({
                                          [pendingApplicantsThunk.fulfilled]: (state, action) => {
                                              state.pendingApplicants = action.payload;
                                          },
+                                         [getAllRecruitersThunk.fulfilled]: (state, action) => {
+                                             state.allRecruiters = action.payload;
+                                             console.log("here");
+                                             console.log(state.allRecruiters);
+                                         },
                                          [approveUserThunk.fulfilled]: (state, action) => {
                                              state.pendingApplicants = state.pendingApplicants
                                                  .filter(t => t._id !== action.payload._id)
@@ -70,6 +78,12 @@ const usersReducer = createSlice({
                                          },
                                          [updateProfileThunk.fulfilled]: (state, action) => {
                                              state.currentUser = action.payload;
+
+                                             state.allRecruiters =
+                                                 state.allRecruiters.filter(
+                                                     followRec => followRec.username
+                                                                  !== action.payload.appFollowing[action.payload.appFollowing.length
+                                                                                                  - 1]);
                                          },
                                      }
                                  })

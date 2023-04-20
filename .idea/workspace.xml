@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="48b6b75d-2d2c-4c0e-91bf-40dcf36ea59b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobstan/edit-profile/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/edit-profile/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jobstan/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobstan/profile/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/profile/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobstan/profile/profile.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/profile/profile.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jobstan/register/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/register/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobstan/services/users-reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/services/users-reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jobstan/services/users-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/services/users-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jobstan/services/users-thunk.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/services/users-thunk.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +31,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/navigation-sidebar.js" root0="FORCE_HIGHLIGHTING" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/jobstan/services/users-thunk.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/jobstan/register/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/jobstan/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/jobstan/recruiters-follow/recruiter-follow-item.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/jobstan/edit-profile/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/navigation-sidebar.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2OKoEbZO970c4kwV0tMsGASSWnm" />
   <component name="ProjectLevelVcsManager">
@@ -72,7 +86,7 @@
       <updated>1681318524111</updated>
       <workItem from="1681318525972" duration="30475000" />
       <workItem from="1681512600647" duration="55000" />
-      <workItem from="1681512676372" duration="47544000" />
+      <workItem from="1681512676372" duration="75370000" />
     </task>
     <servers />
   </component>

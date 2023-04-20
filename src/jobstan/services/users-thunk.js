@@ -7,7 +7,8 @@ import {
     approveUser,
     login,
     register,
-    updateProfile
+    updateProfile,
+    getRecruiters,
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -48,4 +49,9 @@ export const registerThunk = createAsyncThunk(
 export const updateProfileThunk = createAsyncThunk(
     'updateProfile',
     async (profile) => await updateProfile(profile)
+)
+
+export const getAllRecruitersThunk = createAsyncThunk(
+    'getRecruiters',
+    async (uid) => await getRecruiters(uid)
 )

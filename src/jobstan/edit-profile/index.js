@@ -118,7 +118,7 @@ const EditProfileComponent = () => {
                                          <input type="text" className="form-control"
                                                 id="appMajorField"
                                                 defaultValue={currentUser.appMajor}
-                                                onChange={(event) => setAppUniv(event.target.value)}
+                                                onChange={(event) => setAppMajor(event.target.value)}
                                          />
                                      </div>}
                                 </div>
@@ -266,7 +266,7 @@ const EditProfileComponent = () => {
                                     </Link>
                                 </div >
                                 <div className="mt-3">
-                                    <Link className="text-centre" to="../edit-profile">
+                                    <Link className="text-centre" to="../profile">
                                         Go back to Profile
                                     </Link>
                                 </div>
