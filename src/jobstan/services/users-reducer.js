@@ -18,11 +18,11 @@ const usersReducer = createSlice({
                                          users: [],
                                          pendingApplicants: [],
                                          pendingRecruiters: [],
+                                         allRecruiters: [],
                                          logoutComp: false,
                                          currentUser: null,
                                          loading: true,
                                          profileUser: null,
-                                         allRecruiters: [],
                                      },
                                      extraReducers: {
                                          [profileThunk.pending]: (state, action) => {
@@ -67,8 +67,6 @@ const usersReducer = createSlice({
                                          },
                                          [getAllRecruitersThunk.fulfilled]: (state, action) => {
                                              state.allRecruiters = action.payload;
-                                             console.log("here");
-                                             console.log(state.allRecruiters);
                                          },
                                          [approveUserThunk.fulfilled]: (state, action) => {
                                              state.pendingApplicants = state.pendingApplicants
@@ -78,7 +76,6 @@ const usersReducer = createSlice({
                                          },
                                          [updateProfileThunk.fulfilled]: (state, action) => {
                                              state.currentUser = action.payload;
-
                                              state.allRecruiters =
                                                  state.allRecruiters.filter(
                                                      followRec => followRec.username

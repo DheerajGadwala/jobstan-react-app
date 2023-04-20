@@ -312,7 +312,8 @@ const RegisterComponent = () => {
                                                     <span>{skill}</span>
                                                     <button
                                                         className="btn btn-danger"
-                                                        onClick={() => {
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
                                                             setSkills(skills.filter((_, i) => i !== index));
                                                         }}
                                                     >
@@ -384,7 +385,8 @@ const RegisterComponent = () => {
                                                     <span>{position}</span>
                                                     <button
                                                         className="btn btn-danger"
-                                                        onClick={() => {
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
                                                             setPositions(positions.filter((_, i) => i !== index));
                                                         }}
                                                     >

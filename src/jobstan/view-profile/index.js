@@ -1,23 +1,15 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from "react-router";
-import {Link} from "react-router-dom";
-import {getNGOInterestedDonorThunk, getUserInterestsThunk} from "../services/users-thunk";
+import React from "react";
+import {useLocation} from "react-router";
 
-const ProfileComponent = () => {
-    const {currentUser} = useSelector((state) => state.users);
+const ViewProfileComponent = ({route, navigate}) => {
+    const location = useLocation();
+    const viewUser = location.state.user;
 
     var isApplicant = false;
-    if (currentUser && currentUser.role === "APPLICANT") {
+    if (viewUser.role === "APPLICANT") {
         isApplicant = true;
     }
-
-    const dispatch = useDispatch();
-
-    var isApplicant = false;
-    if (currentUser && currentUser.role === "APPLICANT") {
-        isApplicant = true;
-    }
+    console.log(viewUser);
 
     return (
         <>
@@ -30,24 +22,18 @@ const ProfileComponent = () => {
                                 <div>
                                     <img
                                         src="../jobstan-logo2.png"
-                                        alt="profile" className="rounded-circle img-fluid"
+                                        alt="avatar" className="rounded-circle img-fluid"
                                         style={{width: "150px"}}/>
-                                    <h5 className="my-3">{currentUser.name}</h5>
-                                    {!isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Recruiter</p>}
-                                    {isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Applicant&nbsp;&nbsp;|&nbsp;&nbsp;{currentUser.appFollowing.length} Following</p>}
+                                    <h5 className="my-3">{viewUser.name}</h5>
+                                    {!isApplicant && <p
+                                        className="text-muted mb-1">@{viewUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Recruiter</p>}
+                                    {isApplicant && <p
+                                        className="text-muted mb-1">@{viewUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Applicant&nbsp;&nbsp;|&nbsp;&nbsp;{viewUser.appFollowing.length} Following</p>}
                                 </div>
                                 <div className="row text-muted justify-content-center">
                                     <div className="col-auto">
                                         <i className="bi bi-envelope-fill"></i> &nbsp;
-                                        <span>{currentUser.email}</span>
-                                    </div>
-                                    <div className="col-auto">
-                                        <i className="bi bi-geo-alt-fill"></i> &nbsp;
-                                        <span>{currentUser.address}</span>
-                                    </div>
-                                    <div className="col-auto">
-                                        <i className="bi bi-telephone-fill"></i> &nbsp;
-                                        <span>{currentUser.phone}</span>
+                                        <span>{viewUser.email}</span>
                                     </div>
                                 </div>
 
@@ -62,8 +48,8 @@ const ProfileComponent = () => {
                                                 </div>
                                                 <div className="col-9">
                                                     <p className="text-muted mb-0">{isApplicant
-                                                                                    ? currentUser.appUniv
-                                                                                    : currentUser.recComp}</p>
+                                                                                    ? viewUser.appUniv
+                                                                                    : viewUser.recComp}</p>
                                                 </div>
                                             </div>
                                             <hr/>
@@ -74,8 +60,8 @@ const ProfileComponent = () => {
                                                 </div>
                                                 <div className="col-9">
                                                     <p className="text-muted mb-0">{isApplicant
-                                                                                    ? currentUser.appMajor
-                                                                                    : currentUser.recCompDesc}</p>
+                                                                                    ? viewUser.appMajor
+                                                                                    : viewUser.recCompDesc}</p>
                                                 </div>
                                             </div>
                                             <hr/>
@@ -86,20 +72,15 @@ const ProfileComponent = () => {
                                                 </div>
                                                 <div className="col-9">
                                                     <p className="text-muted mb-0">{isApplicant
-                                                                                    ? currentUser.appSkills.join(", ")
-                                                                                   : currentUser.recPositions.join(", ")}</p>
+                                                                                    ? viewUser.appSkills.join(
+                                                            ", ")
+                                                                                    : viewUser.recPositions.join(
+                                                            ", ")}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <Link to="../edit-profile">
-                                    <button
-                                        className="btn btn-primary rounded-pill mt-2 margin-right-left"> Edit
-                                        Profile
-                                    </button>
-                                </Link>
                             </div>
                         </div>
                     </div>
@@ -108,4 +89,4 @@ const ProfileComponent = () => {
         </>
     );
 };
-export default ProfileComponent;
+export default ViewProfileComponent;

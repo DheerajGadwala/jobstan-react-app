@@ -37,7 +37,7 @@ const EditProfileComponent = () => {
     const initialize = (e) => {
         setAddress(e.target.value)
         var autocomplete = new window.google.maps.places.Autocomplete(
-            (document.getElementById('reg-address')),
+            (document.getElementById('addressField')),
             {types: ['geocode']});
         autocomplete.addListener('place_changed', fillInAddress);
     }
@@ -89,9 +89,10 @@ const EditProfileComponent = () => {
                                     <label htmlFor="addressField"><b>Address</b></label>
                                     <input type="text" className="form-control"
                                            id="addressField" defaultValue={currentUser.address}
-                                           onChange={event => initialize(event)}
+                                           onChange={(e) => initialize(e)}
                                     />
                                 </div>
+
                                 <div className="form-group mb-2" style={{textAlign: "left"}}>
                                     <label htmlFor="phoneField"><b>Mobile number</b></label>
                                     <input type="number" className="form-control" id="phoneField"
@@ -133,6 +134,7 @@ const EditProfileComponent = () => {
                                                 className="form-control"
                                                 style={{marginRight: "10px"}}
                                                 placeholder="Enter any skill"
+                                                value={newSkill}
                                                 onChange={(e) => setNewSkill(e.target.value)}
                                             />
                                             <div className="input-group-append">
@@ -142,6 +144,7 @@ const EditProfileComponent = () => {
                                                     onClick={() => {
                                                         setAppSkills([...appSkills, newSkill]);
                                                         setNewSkill('');
+
                                                     }}
                                                 >
                                                     Add Skill
@@ -159,9 +162,9 @@ const EditProfileComponent = () => {
                                                     <span>{skill}</span>
                                                     <button
                                                         className="btn btn-danger"
-                                                        onClick={() => {
-                                                            setAppSkills(appSkills.filter(
-                                                                (_, i) => i !== index));
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            setAppSkills(appSkills.filter((_, i) => i !== index));
                                                         }}
                                                     >
                                                         Remove
@@ -206,6 +209,7 @@ const EditProfileComponent = () => {
                                                 className="form-control"
                                                 style={{marginRight: "10px"}}
                                                 placeholder="Enter the position name"
+                                                value={newPosition}
                                                 onChange={(e) => setNewPosition(e.target.value)}
                                             />
                                             <div className="input-group-append">
@@ -233,7 +237,8 @@ const EditProfileComponent = () => {
                                                     <span>{position}</span>
                                                     <button
                                                         className="btn btn-danger"
-                                                        onClick={() => {
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
                                                             setRecPositions(recPositions.filter(
                                                                 (_, i) => i !== index));
                                                         }}

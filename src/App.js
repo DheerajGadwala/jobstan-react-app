@@ -8,14 +8,10 @@ import RegisterComponent from "./jobstan/register"
 import LoginComponent from "./jobstan/login"
 import CurrentUser from './jobstan/current-user';
 import usersReducer from './jobstan/services/users-reducer';
-import RecruitersReducer from './jobstan/recruiters-follow/recruiter-follow-reducer';
 
 const store = configureStore({
                                  reducer: {
                                      users: usersReducer,
-                                     allRecruiters: RecruitersReducer,
-                                     
-                                     
                                  }
 })
 

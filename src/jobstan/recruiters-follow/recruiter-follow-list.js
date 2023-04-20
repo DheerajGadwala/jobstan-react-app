@@ -5,12 +5,15 @@ import {getAllRecruitersThunk} from "../services/users-thunk";
 
 const FollowRecsList = () => {
     const {currentUser} = useSelector((state) => state.users)
-    const {followRecsArray} = useSelector((state) => state.allRecruiters);
+    const {allRecruiters} = useSelector((state) => state.users);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllRecruitersThunk(currentUser._id));
     }, [])
-    
+
+
+    console.log(allRecruiters);
+
 
     return (
         <ul className="list-group">
@@ -18,12 +21,12 @@ const FollowRecsList = () => {
                 <h3>Recruiters to Follow</h3>
             </li>
             {
-                followRecsArray.length === 0 ?
+                allRecruiters.length === 0 ?
                 <li className="list-group-item">
                     No Recruiters Registered
                 </li>
                 :
-                followRecsArray.map(followRec =>
+                allRecruiters.map(followRec =>
                                         <RecruiterFollowItem
                                             key={followRec._id}
                                             followRec={followRec}
