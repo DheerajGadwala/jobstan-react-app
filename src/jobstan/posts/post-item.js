@@ -1,13 +1,16 @@
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {deletePostThunk} from "../services/posts-thunk";
+import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
+import {getUserThunk} from "../services/users-thunk";
+
 
 const PostItem = ({post}) => {
 
     function getTimeDifference(createdAt) {
         const currentDate = new Date();
-        const differenceInSeconds = Math.floor((currentDate.getTime() - new Date(createdAt).getTime()) / 1000);
+        const differenceInSeconds = Math.floor(
+            (currentDate.getTime() - new Date(createdAt).getTime()) / 1000);
 
         if (differenceInSeconds < 60) {
             return `${differenceInSeconds} seconds ago`;
@@ -31,7 +34,6 @@ const PostItem = ({post}) => {
 
     const {currentUser} = useSelector((state) => state.users);
 
-
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
         isApplicant = true;
@@ -39,17 +41,33 @@ const PostItem = ({post}) => {
 
     // Convert createdAt string from MongoDB to Date object
     const createdAt = new Date(post.createdAt);
-    const estCreatedAt = createdAt.toLocaleString('en-US', { timeZone: 'America/New_York' });
+    const estCreatedAt = createdAt.toLocaleString('en-US', {timeZone: 'America/New_York'});
+    var alreadyApplied = post.applicants.includes(currentUser._id);
 
     const dispatch = useDispatch();
+
     function deletePostHandler() {
         dispatch(deletePostThunk(post._id));
+    }
+
+    function applyPostHandler(updatedPost) {
+        dispatch(updatePostThunk(updatedPost));
+        alreadyApplied = true;
     }
 
     const navigate = useNavigate();
 
     function viewPost() {
         navigate(`/view-post`, {state: {vpost: post}});
+    }
+
+    let {clickedUser} = useSelector((state) => state.users);
+    useEffect(() => {
+        dispatch(getUserThunk(post.recruiter_id))
+    }, []);
+
+    function moveToViewProfile() {
+        navigate(`/view-profile`, {state: {user: clickedUser}});
     }
 
     return (
@@ -63,42 +81,65 @@ const PostItem = ({post}) => {
                         </div>
                         <div type="button" onClick={viewPost}>
                             <div className="mb-1">
-                                <span className="fw-normal" style={{color: "black"}}>@{post.company}</span>
+                                <span className="fw-normal"
+                                      style={{color: "black"}}>@{post.company}</span>
                             </div>
                             <div className="mb-1">
                                 <span className="text-secondary fw-normal">Salary:</span>&nbsp;
-                                <span className="fw-normal" style={{color: "black"}}>{post.pay}</span>
+                                <span className="fw-normal"
+                                      style={{color: "black"}}>{post.pay}</span>
                             </div>
-                            {isApplicant &&<div className="text-secondary fw-normal mb-1">
-                                Posted by Recruiter: <span className="" style={{color: "#006400"}}  type = "button">{post.recruiter_name}</span>
-                            </div>}
                             <div className="text-secondary fw-normal mb-1">
-                                Skills: <span className="" style={{color: "black"}}>{post.skills}</span>
+                                Skills: <span className=""
+                                              style={{color: "black"}}>{post.skills}</span>
                             </div>
                         </div>
+                        {isApplicant && <div className="text-secondary fw-normal mb-1">
+                            Posted by Recruiter: <span className="fw-bolder" onClick={moveToViewProfile} style={{color: "#006400"}}
+                                                       type="button">{post.recruiter_name}</span>
+                        </div>}
 
                         <div className="row text-muted mt-3">
                             <div className="col align-content-center justify-content-center d-flex">
-                                <span style={{color: "#006400"}}><span className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>
+                                <span className="fw-bolder" style={{color: "#006400"}}><span
+                                    className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>
                             </div>
-                            {isApplicant && <div className="col align-content-center justify-content-center d-flex">
-                                <span type="button" >
-                                    <i style={{color: "#006400"}} className="fa fa-suitcase" aria-hidden="true"></i> &nbsp;
-                                    <span style={{color: "#006400"}}>Apply</span>
-                                </span>
-                            </div>}
 
+                            {
+                                isApplicant &&
+
+                                    alreadyApplied ? <div className="col align-content-center justify-content-center d-flex">
+                                                         <span>
+                                                             <i style={{color: "#006400"}} className="bi bi-check-circle-fill"
+                                                                aria-hidden="true"></i> &nbsp;
+                                                             <span className="fw-bolder" style={{color: "#006400"}}>Applied</span>
+                                                         </span>
+                                                     </div>
+
+                                                   : <div
+                                                         className="col align-content-center justify-content-center d-flex">
+                                                         <span type="button" onClick={() => applyPostHandler({
+                                                                                        ...post,
+                                                                                        applicants: [...post.applicants,
+                                                                                                     currentUser._id],
+                                                                                    })}>
+                                                             <i style={{color: "#006400"}} className="fa fa-suitcase"
+                                                                aria-hidden="true"></i> &nbsp;
+                                                             <span className="fw-bolder" style={{color: "#006400"}}>Apply</span>
+                                                         </span>
+                                                     </div>
+                            }
                             {!isApplicant &&
-                                <div className="col align-content-center justify-content-center d-flex">
+                             <div
+                                 className="col align-content-center justify-content-center d-flex">
                                     <span type="button" onClick={deletePostHandler}>
-                                        <i style={{color: "#ff0e0e"}} className="bi bi-trash3-fill"></i> &nbsp;
+                                        <i style={{color: "#ff0e0e"}}
+                                           className="bi bi-trash3-fill"></i> &nbsp;
                                         <span style={{color: "#ff0e0e"}}>Delete</span>
                                     </span>
-
-                                </div>
+                             </div>
                             }
                         </div>
-
                     </div>
                 </div>
             </div>

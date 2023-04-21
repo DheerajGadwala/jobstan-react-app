@@ -16,3 +16,8 @@ export const deletePost = async (post_id) => {
     const response = await axios.delete(`${BASE_API_URL}/deletePost/${post_id}`);
     return response.data;
 }
+
+export const updatePost = async (updatedPost) => {
+    const response = await axios.put(`${BASE_API_URL}/updatePost/${updatedPost._id}`, updatedPost);
+    return updatedPost;
+}

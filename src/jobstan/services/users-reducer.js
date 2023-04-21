@@ -10,6 +10,7 @@ import {
     registerThunk,
     getAllRecruitersThunk,
     removeFollowedRecruiter,
+    getUserThunk,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -23,6 +24,7 @@ const usersReducer = createSlice({
                                          currentUser: null,
                                          loading: true,
                                          profileUser: null,
+                                         clickedUser: null,
                                      },
                                      extraReducers: {
                                          [profileThunk.pending]: (state, action) => {
@@ -81,6 +83,9 @@ const usersReducer = createSlice({
                                                      followRec => followRec._id
                                                                   !== action.payload.appFollowing[action.payload.appFollowing.length
                                                                                                   - 1]);
+                                         },
+                                         [getUserThunk.fulfilled]: (state, action) => {
+                                             state.clickedUser = action.payload;
                                          },
                                      }
                                  })

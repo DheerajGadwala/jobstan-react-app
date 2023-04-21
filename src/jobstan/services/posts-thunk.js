@@ -20,3 +20,8 @@ export const deletePostThunk = createAsyncThunk(
     'deletePost',
     async (post_id) => await deletePost(post_id)
 )
+
+export const updatePostThunk = createAsyncThunk(
+    'updatePost',
+    async (updatedPost) => await updatePost(updatedPost)
+)

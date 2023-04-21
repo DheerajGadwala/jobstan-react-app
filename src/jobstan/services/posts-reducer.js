@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    createPostThunk, getPostsThunk, deletePostThunk,
+    createPostThunk, getPostsThunk, deletePostThunk, updatePostThunk
 } from "./posts-thunk";
 
 const postsReducer = createSlice({
@@ -24,6 +24,15 @@ const postsReducer = createSlice({
                                              state.loading = false;
                                              state.posts = state.posts
                                                  .filter(post => post._id !== action.payload);
+                                             },
+                                         [updatePostThunk.fulfilled]: (state, action) => {
+                                                 state.loading = false
+                                                 const postIndex = state.posts
+                                                     .findIndex((post) => post._id === action.payload._id)
+                                                 state.posts[postIndex] = {
+                                                     ...state.posts[postIndex],
+                                                     ...action.payload
+                                                 }
                                              },
                                          },
                                  })

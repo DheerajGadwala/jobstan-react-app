@@ -48,3 +48,8 @@ export const getRecruiters = async (uid) => {
     const response = await axios.get(`${BASE_API_URL}/getRecruiters/${uid}`);
     return response.data;
 }
+
+export const getUser = async (uid) => {
+    const response = await axios.get(`${BASE_API_URL}/getUser/${uid}`);
+    return response.data;
+}

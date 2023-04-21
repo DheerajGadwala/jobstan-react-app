@@ -40,7 +40,7 @@ const CreatePost = () => {
         setTitle("");
         setDescription("");
         setPay("");
-        setDescription("");
+        setSkills("");
         dispatch(createPostThunk(newPost));
     };
 
