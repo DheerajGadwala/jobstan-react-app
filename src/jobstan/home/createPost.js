@@ -34,6 +34,7 @@ const CreatePost = () => {
             skills: skills,
             company: currentUser.recComp,
             recruiter_id: currentUser._id,
+            recruiter_name: currentUser.name,
             applicants: []
         }
         setTitle("");
@@ -45,50 +46,52 @@ const CreatePost = () => {
 
     return (
         <form>
-            {currentUser && currentUser.role === "RECRUITER" ?
-             <div>
-                 <div className="row">
-                     <div className="col-6">
-                         <input type="text" value={title} placeholder="Job Title"
-                                className="form-control mb-2" style={{boxShadow: "none"}}
-                                onChange={(event) => setTitle(event.target.value)} required/>
-                     </div>
-                     <div className="col-6">
-                         <input type="number" value={pay} placeholder="Pay"
-                                className="form-control mb-2" style={{boxShadow: "none"}}
-                                onChange={(event) => setPay(event.target.value)}
-                                required />
-                     </div>
-                     <div className="col-5 col-sm-4 col-md-3">
-                         <input type="text" value={description} placeholder="Description"
-                                className="form-control mb-2" style={{boxShadow: "none"}}
-                                onChange={(event) => setDescription(event.target.value)}
-                                required />
-                     </div>
-                     <div className="col-5 col-sm-4 col-md-3">
-                         <input type="text" value={skills} placeholder="Skills"
-                                className="form-control mb-2" style={{boxShadow: "none"}}
-                                onChange={(event) => setSkills(event.target.value)}
-                                required />
-                     </div>
-                 </div>
-                 <div className="row">
-                     <div>
-                         <button
-                             className="rounded-pill btn float-end mt-2 ps-3 pe-3 fw-bold text-white"
-                             style={{backgroundColor: "#5a4099"}}
-                             type="submit"
-                             onClick={onSubmit}>
-                             Post
-                         </button>
-                     </div>
-                 </div>
-                 <div className="col-12">
-                     <hr/>
-                 </div>
-             </div> :
-             ""
-             }
+            <div>
+                <div className="row">
+                    <div className="col-6">
+                        <input type="text" value={title} placeholder="Job Title"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setTitle(event.target.value)} required/>
+                    </div>
+                    <div className="col-6">
+                        <input type="text" value={pay} placeholder="Pay"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setPay(event.target.value)}
+                               required/>
+                    </div>
+
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                         <textarea value={description} placeholder="Description" rows="2"
+                                   style={{width: "100%", boxShadow: "none"}}
+                                   className="form-control mb-2"
+                                   onChange={(event) => setDescription(event.target.value)}
+                                   required/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-10">
+                        <input type="text" value={skills} placeholder="Skills"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setSkills(event.target.value)}
+                               required/>
+                    </div>
+                    <div className="col-2">
+                        <button
+                            className="rounded-pill btn float-end ps-3 pe-3 fw-bold text-white"
+                            style={{backgroundColor: "#006400"}}
+                            type="submit"
+                            onClick={onSubmit}>
+                            Post
+                        </button>
+                    </div>
+
+                </div>
+                <div className="col-12">
+                    <hr/>
+                </div>
+            </div>
         </form>
     );
 }

@@ -26,7 +26,7 @@ const RecruiterFollowItem = ({followRec, currentUser}) => {
                     <button onClick={() => updateProfile({
                                                              ...currentUser,
                                                              appFollowing : [...currentUser.appFollowing,
-                                                                              followRec.username],
+                                                                              followRec._id],
                                                          })}
                             className="btn btn-primary rounded-pill float-end mt-1">Follow
                     </button>

@@ -78,7 +78,7 @@ const usersReducer = createSlice({
                                              state.currentUser = action.payload;
                                              state.allRecruiters =
                                                  state.allRecruiters.filter(
-                                                     followRec => followRec.username
+                                                     followRec => followRec._id
                                                                   !== action.payload.appFollowing[action.payload.appFollowing.length
                                                                                                   - 1]);
                                          },

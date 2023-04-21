@@ -1,7 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
     createPost,
-    getPreviousPosts
+    getPosts,
+    deletePost,
+    updatePost,
 } from "./posts-service";
 
 export const createPostThunk = createAsyncThunk(
@@ -9,7 +11,12 @@ export const createPostThunk = createAsyncThunk(
     async (post) => await createPost(post)
 )
 
-export const getPreviousPostsThunk = createAsyncThunk(
-    'previousPosts',
-    async (recruiter_id) => await getPreviousPosts(recruiter_id)
+export const getPostsThunk = createAsyncThunk(
+    'getPosts',
+    async (user_id) => await getPosts(user_id)
+)
+
+export const deletePostThunk = createAsyncThunk(
+    'deletePost',
+    async (post_id) => await deletePost(post_id)
 )

@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    createPostThunk, getPreviousPostsThunk
+    createPostThunk, getPostsThunk, deletePostThunk,
 } from "./posts-thunk";
 
 const postsReducer = createSlice({
@@ -10,19 +10,22 @@ const postsReducer = createSlice({
                                         loading: true
                                      },
                                      extraReducers: {
-                                        [createPostThunk.fulfilled]: (state, action) => {
-                                            state.homePosts.push(action.payload);
-                                            // console.log(action.payload);
-                                        },
-                                        [getPreviousPostsThunk.pending]: (state, action) => {
-                                            state.loading = true;
-                                        },
-                                        [getPreviousPostsThunk.fulfilled]: (state, action) => {
-                                            // console.log(...action.payload);
-                                            state.posts = [...state.posts, ...action.payload];
-                                            state.loading = false;
-                                        }
-                                     }
+                                         [createPostThunk.fulfilled]: (state, action) => {
+                                             state.posts.push(action.payload);
+                                             }, 
+                                         [getPostsThunk.pending]: (state, action) => {
+                                             state.loading = true;
+                                             }, 
+                                         [getPostsThunk.fulfilled]: (state, action) => {
+                                             state.posts = action.payload;
+                                             state.loading = false;
+                                             }, 
+                                         [deletePostThunk.fulfilled]: (state, action) => {
+                                             state.loading = false;
+                                             state.posts = state.posts
+                                                 .filter(post => post._id !== action.payload);
+                                             },
+                                         },
                                  })
 
 export default postsReducer.reducer;

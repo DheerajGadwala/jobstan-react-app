@@ -25,7 +25,7 @@ const ProfileComponent = () => {
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-md-12 col-xl-12">
                         <div className="card"
-                             style={{borderRadius: "10px", backgroundColor: "#f0f0f0"}}>
+                             style={{borderRadius: "10px", backgroundColor: "#FBFDFB"}}>
                             <div className="card-body text-center">
                                 <div>
                                     <img
@@ -96,7 +96,9 @@ const ProfileComponent = () => {
 
                                 <Link to="../edit-profile">
                                     <button
-                                        className="btn btn-primary rounded-pill mt-2 margin-right-left"> Edit
+                                        className="btn btn-primary rounded-pill mt-2 margin-right-left"
+                                        style={{backgroundColor: "#006400"}}
+                                        > Edit
                                         Profile
                                     </button>
                                 </Link>

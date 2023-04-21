@@ -7,7 +7,12 @@ export const createPost = async (post) => {
     return response.data;
 }
 
-export const getPreviousPosts = async (recruiter_id) => {
-    const response = await axios.get(`${BASE_API_URL}/previousPosts/${recruiter_id}`);
+export const getPosts = async (user_id) => {
+    const response = await axios.get(`${BASE_API_URL}/getPosts/${user_id}`);
+    return response.data;
+}
+
+export const deletePost = async (post_id) => {
+    const response = await axios.delete(`${BASE_API_URL}/deletePost/${post_id}`);
     return response.data;
 }
