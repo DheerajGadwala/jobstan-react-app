@@ -73,7 +73,7 @@ const ViewPostComponent = ({route, navigate}) => {
                                                     <span
                                                         className="text-secondary fw-normal">Salary:</span>&nbsp;
                                                     <span className="fw-normal"
-                                                          style={{color: "#006400"}}>{viewPost.pay}</span>
+                                                          style={{color: "black"}}>{viewPost.pay}</span>
                                                 </div>
                                                 {isApplicant && <div
                                                     className="text-secondary fw-normal mb-1">
@@ -83,9 +83,9 @@ const ViewPostComponent = ({route, navigate}) => {
                                                 </div>}
                                                 <div className="text-secondary fw-normal mb-2">
                                                     Skills: <span className=""
-                                                                  style={{color: "#006400"}}>{viewPost.skills}</span>
+                                                                  style={{color: "black"}}>{viewPost.skills}</span>
                                                 </div>
-                                                <div className="text-secondary fw-normal mb-2">
+                                                <div className="fw-normal mb-2">
                                                     {viewPost.description}
                                                 </div>
                                                 <div className="row text-muted mt-3">

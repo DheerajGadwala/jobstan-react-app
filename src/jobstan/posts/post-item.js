@@ -63,17 +63,17 @@ const PostItem = ({post}) => {
                         </div>
                         <div type="button" onClick={viewPost}>
                             <div className="mb-1">
-                                <span className="fw-normal" style={{color: "#006400"}}>@{post.company}</span>
+                                <span className="fw-normal" style={{color: "black"}}>@{post.company}</span>
                             </div>
                             <div className="mb-1">
                                 <span className="text-secondary fw-normal">Salary:</span>&nbsp;
-                                <span className="fw-normal" style={{color: "#006400"}}>{post.pay}</span>
+                                <span className="fw-normal" style={{color: "black"}}>{post.pay}</span>
                             </div>
                             {isApplicant &&<div className="text-secondary fw-normal mb-1">
                                 Posted by Recruiter: <span className="" style={{color: "#006400"}}  type = "button">{post.recruiter_name}</span>
                             </div>}
                             <div className="text-secondary fw-normal mb-1">
-                                Skills: <span className="" style={{color: "#006400"}}>{post.skills}</span>
+                                Skills: <span className="" style={{color: "black"}}>{post.skills}</span>
                             </div>
                         </div>
 
