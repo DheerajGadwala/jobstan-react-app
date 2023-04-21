@@ -46,9 +46,11 @@ const PostItem = ({post}) => {
         dispatch(deletePostThunk(post._id));
     }
 
-    // function applyPostHandler() {
-    //     dispatch(updatePostThunk(post._id));
-    // }
+    const navigate = useNavigate();
+
+    function viewPost() {
+        navigate(`/view-post`, {state: {vpost: post}});
+    }
 
     return (
         <li className="list-group-item">
@@ -59,19 +61,22 @@ const PostItem = ({post}) => {
                             <span className="text-secondary fw-normal">
                                 &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>
                         </div>
-                        <div className="mb-1">
-                            <span className="fw-normal" style={{color: "#006400"}}>@{post.company}</span>
+                        <div type="button" onClick={viewPost}>
+                            <div className="mb-1">
+                                <span className="fw-normal" style={{color: "#006400"}}>@{post.company}</span>
+                            </div>
+                            <div className="mb-1">
+                                <span className="text-secondary fw-normal">Salary:</span>&nbsp;
+                                <span className="fw-normal" style={{color: "#006400"}}>{post.pay}</span>
+                            </div>
+                            {isApplicant &&<div className="text-secondary fw-normal mb-1">
+                                Posted by Recruiter: <span className="" style={{color: "#006400"}}  type = "button">{post.recruiter_name}</span>
+                            </div>}
+                            <div className="text-secondary fw-normal mb-1">
+                                Skills: <span className="" style={{color: "#006400"}}>{post.skills}</span>
+                            </div>
                         </div>
-                        <div className="mb-1">
-                            <span className="text-secondary fw-normal">Salary:</span>&nbsp;
-                            <span className="fw-normal" style={{color: "#006400"}}>{post.pay}</span>
-                        </div>
-                        {isApplicant &&<div className="text-secondary fw-normal mb-1">
-                            Posted by Recruiter: <span className="" style={{color: "#006400"}}  type = "button">{post.recruiter_name}</span>
-                        </div>}
-                        <div className="text-secondary fw-normal mb-1">
-                            Skills: <span className="" style={{color: "#006400"}}>{post.skills}</span>
-                        </div>
+
                         <div className="row text-muted mt-3">
                             <div className="col align-content-center justify-content-center d-flex">
                                 <span style={{color: "#006400"}}><span className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>

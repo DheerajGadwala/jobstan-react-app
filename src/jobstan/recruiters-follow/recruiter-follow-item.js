@@ -28,7 +28,9 @@ const RecruiterFollowItem = ({followRec, currentUser}) => {
                                                              appFollowing : [...currentUser.appFollowing,
                                                                               followRec._id],
                                                          })}
-                            className="btn btn-primary rounded-pill float-end mt-1">Follow
+                            className="btn btn-primary rounded-pill float-end mt-1"
+                            style ={{backgroundColor: "#006400"}}
+                    >Follow
                     </button>
                 </div>
             </div>

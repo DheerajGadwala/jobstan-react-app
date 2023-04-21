@@ -4,6 +4,7 @@ import AdminComponent from "./admin";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
 import ViewProfileComponent from "./view-profile";
+import ViewPostComponent from "./view-post";
 import FollowRecsList from "./recruiters-follow/recruiter-follow-list";
 import EditProfileComponent from "./edit-profile";
 import {Route, Routes} from "react-router";
@@ -47,6 +48,9 @@ function Jobstan() {
                         }/>
                         <Route path="view-profile" element={
                             <ViewProfileComponent/>
+                        }/>
+                        <Route path="view-post" element={
+                            <ViewPostComponent/>
                         }/>
                     </Routes>
                 </div>

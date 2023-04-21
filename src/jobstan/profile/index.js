@@ -1,18 +1,9 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from "react-router";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {getNGOInterestedDonorThunk, getUserInterestsThunk} from "../services/users-thunk";
 
 const ProfileComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
-
-    var isApplicant = false;
-    if (currentUser && currentUser.role === "APPLICANT") {
-        isApplicant = true;
-    }
-
-    const dispatch = useDispatch();
 
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
