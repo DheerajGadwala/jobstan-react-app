@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48b6b75d-2d2c-4c0e-91bf-40dcf36ea59b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/jobstan/posts/post-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/posts/post-item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jobstan/view-post/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/jobstan/view-post/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +82,7 @@
       <workItem from="1681318525972" duration="30475000" />
       <workItem from="1681512600647" duration="55000" />
       <workItem from="1681512676372" duration="93222000" />
-      <workItem from="1682015992333" duration="21874000" />
+      <workItem from="1682015992333" duration="22221000" />
     </task>
     <servers />
   </component>

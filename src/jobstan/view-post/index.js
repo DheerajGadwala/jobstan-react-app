@@ -2,6 +2,8 @@ import React from "react";
 import {useLocation} from "react-router";
 import {useSelector, useDispatch} from "react-redux";
 import {deletePostThunk} from "../services/posts-thunk";
+import {useNavigate} from "react-router-dom";
+
 
 const ViewPostComponent = ({route, navigate}) => {
     const {currentUser} = useSelector((state) => state.users);
@@ -43,9 +45,12 @@ const ViewPostComponent = ({route, navigate}) => {
     const estCreatedAt = createdAt.toLocaleString('en-US', {timeZone: 'America/New_York'});
 
     const dispatch = useDispatch();
+    const navigate2 = useNavigate();
+
 
     function deletePostHandler() {
         dispatch(deletePostThunk(viewPost._id));
+        navigate2(`../home`);
     }
 
     return (
