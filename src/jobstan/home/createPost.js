@@ -2,17 +2,6 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {createPostThunk} from "../services/posts-thunk";
 
-/*
-_id: String,
-title: String,
-pay: Number,
-description: String,
-skills: String,
-company: String,
-recruiter_id: String,
-applicants: {type: Array, default: []}
-
-*/
 const CreatePost = () => {
     const {currentUser} = useSelector((state) => state.users)
     let [title, setTitle] = useState('')

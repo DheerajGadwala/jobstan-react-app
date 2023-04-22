@@ -10,12 +10,10 @@ const NavigationSideBar = () => {
 
     const {pathname} = useLocation();
     const paths = pathname.split('/')
-    console.log(paths)
     const active = paths[1];
 
     const dispatch = useDispatch();
     const logoutHandler = () => {
-        console.log("reached button hanlder");
         dispatch(logoutThunk());
     }
 
@@ -47,7 +45,24 @@ const NavigationSideBar = () => {
                     </div>
                 </div>
             </Link>
-            <Link to="../profile" className={`list-group-item list-group-item-action
+            <Link to="../profile" className={`list-group-item list-import React from "react";
+import PostsList from "../posts/post-list";
+import UserList from "../users/user-list";
+import SearchBar from "./searchBar";
+import { useSelector } from "react-redux";
+
+const SearchPageComponent = () => {
+    
+    const {currentUser} = useSelector((state) => state.users)
+    return(
+        <>
+            <SearchBar/>
+            {currentUser && currentUser.type == "APPLICANT" ? <PostsList/> : <></>}
+            {currentUser && currentUser.type == "RECRUITER" ? <UserList/> : <></>}
+        </>
+    );
+};
+export default SearchPageComponent;group-item-action
         ${active === 'profile' ? 'active' : ''}`}>
                 <div className="row">
                     <div className="col-1">

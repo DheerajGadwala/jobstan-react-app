@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    createPostThunk, getPostsThunk, deletePostThunk, updatePostThunk
+    createPostThunk, getPostsThunk, deletePostThunk, updatePostThunk, getFilteredPostsThunk
 } from "./posts-thunk";
 
 const postsReducer = createSlice({
@@ -8,6 +8,9 @@ const postsReducer = createSlice({
                                      initialState: {
                                         posts: [],
                                         loading: true
+                                     },
+                                     reducers: {
+                                        clearPosts: (state) => {state.posts = []}
                                      },
                                      extraReducers: {
                                          [createPostThunk.fulfilled]: (state, action) => {
@@ -20,6 +23,13 @@ const postsReducer = createSlice({
                                              state.posts = action.payload;
                                              state.loading = false;
                                              }, 
+                                         [getFilteredPostsThunk.pending]: (state, action) => {
+                                             state.loading = true;
+                                         },
+                                         [getFilteredPostsThunk.fulfilled]: (state, action) => {
+                                             state.posts = action.payload;
+                                             state.loading = false
+                                         },
                                          [deletePostThunk.fulfilled]: (state, action) => {
                                              state.loading = false;
                                              state.posts = state.posts
@@ -36,5 +46,5 @@ const postsReducer = createSlice({
                                              },
                                          },
                                  })
-
+export const { clearPosts } = postsReducer.actions;
 export default postsReducer.reducer;

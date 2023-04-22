@@ -4,6 +4,7 @@ import {
     getPosts,
     deletePost,
     updatePost,
+    getFilteredPosts
 } from "./posts-service";
 
 export const createPostThunk = createAsyncThunk(
@@ -21,7 +22,13 @@ export const deletePostThunk = createAsyncThunk(
     async (post_id) => await deletePost(post_id)
 )
 
+<<<<<<< HEAD
 export const updatePostThunk = createAsyncThunk(
     'updatePost',
     async (updatedPost) => await updatePost(updatedPost)
+=======
+export const getFilteredPostsThunk = createAsyncThunk(
+    'getPosts',
+    async ({title, company, applied, user_id}) => await getFilteredPosts({title, company, applied, user_id})
+>>>>>>> sai
 )

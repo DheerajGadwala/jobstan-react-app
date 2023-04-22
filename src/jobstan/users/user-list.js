@@ -1,11 +1,9 @@
 import React, {useEffect} from "react";
-import PostItem from "./post-item";
+import UserItem from "./user-item";
 import {useSelector} from "react-redux";
-import {Navigate} from "react-router";
 
-const PostList = () => {
-    const {posts, loading} = useSelector(state => state.posts);
-
+const UserList = () => {
+    const {users, loading} = useSelector(state => state.users)
     return (
         <ul className="list-group">
             {
@@ -15,16 +13,16 @@ const PostList = () => {
                 </li>
             }
             {
-                posts.length===0 &&
+                users.length===0 &&
                 <li className="list-group-item">
-                    No Jobs found.
+                    No Users found.
                 </li>
             }
             {
-                posts.map(post => <PostItem key={post._id} post={post}/>)
+                users.map(user => <UserItem key={user._id} user={user}/>)
             }
         </ul>
     );
 }
 
-export default PostList;
+export default UserList;

@@ -51,5 +51,9 @@ export const getRecruiters = async (uid) => {
 
 export const getUser = async (uid) => {
     const response = await axios.get(`${BASE_API_URL}/getUser/${uid}`);
+}
+
+export const getFilteredApplicants = async (data) => {
+    const response = await axios.get(`${BASE_API_URL}/getFilteredApplicants/${data.major}/${data.university}`);
     return response.data;
 }

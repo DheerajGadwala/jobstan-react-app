@@ -21,3 +21,7 @@ export const updatePost = async (updatedPost) => {
     const response = await axios.put(`${BASE_API_URL}/updatePost/${updatedPost._id}`, updatedPost);
     return updatedPost;
 }
+export const getFilteredPosts = async (data) => {
+    const response = await axios.get(`${BASE_API_URL}/getFilteredPosts/${data.user_id}/${data.title}/${data.company}/${data.applied}`);
+    return response.data;
+}
