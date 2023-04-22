@@ -15,6 +15,7 @@ const NavigationSideBar = () => {
     const dispatch = useDispatch();
     const logoutHandler = () => {
         dispatch(logoutThunk());
+        <Navigate to={"/login"}/>
     }
 
     if (logoutComp) {

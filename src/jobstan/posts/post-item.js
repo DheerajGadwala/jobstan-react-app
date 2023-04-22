@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
 import {getUserThunk} from "../services/users-thunk";
 
-
 const PostItem = ({post}) => {
 
     function getTimeDifference(createdAt) {
@@ -42,7 +41,10 @@ const PostItem = ({post}) => {
     // Convert createdAt string from MongoDB to Date object
     const createdAt = new Date(post.createdAt);
     const estCreatedAt = createdAt.toLocaleString('en-US', {timeZone: 'America/New_York'});
-    var alreadyApplied = post.applicants.includes(currentUser._id);
+    var alreadyApplied = false
+    if (currentUser) {
+        alreadyApplied = post.applicants.includes(currentUser._id);
+    }
 
     const dispatch = useDispatch();
 
@@ -63,7 +65,9 @@ const PostItem = ({post}) => {
 
     let {clickedUser} = useSelector((state) => state.users);
     useEffect(() => {
-        dispatch(getUserThunk(post.recruiter_id))
+        if (clickedUser) {
+            dispatch(getUserThunk(post.recruiter_id))
+        }
     }, []);
 
     function moveToViewProfile() {
@@ -95,7 +99,9 @@ const PostItem = ({post}) => {
                             </div>
                         </div>
                         {isApplicant && <div className="text-secondary fw-normal mb-1">
-                            Posted by Recruiter: <span className="fw-bolder" onClick={moveToViewProfile} style={{color: "#006400"}}
+                            Posted by Recruiter: <span className="fw-bolder"
+                                                       onClick={moveToViewProfile}
+                                                       style={{color: "#006400"}}
                                                        type="button">{post.recruiter_name}</span>
                         </div>}
 
@@ -105,30 +111,58 @@ const PostItem = ({post}) => {
                                     className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>
                             </div>
 
-                            {
-                                isApplicant &&
+                            {isApplicant ? (
+                                alreadyApplied ? (
+                                    <div
+                                        className="col align-content-center justify-content-center d-flex">
+                                        <span>
+                                            <i style={{color: "#006400"}}
+                                               className="bi bi-check-circle-fill"
+                                               aria-hidden="true"></i> &nbsp;
+                                            <span className="fw-bolder"
+                                                  style={{color: "#006400"}}>Applied</span>
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className="col align-content-center justify-content-center d-flex">
+                                        <span type="button" onClick={() => applyPostHandler(
+                                            {...post, applicants: [...post.applicants, currentUser._id]})}>
+                                            <i style={{color: "#006400"}} className="fa fa-suitcase" aria-hidden="true"></i> &nbsp;
+                                            <span className="fw-bolder" style={{color: "#006400"}}>Apply</span>
+                                        </span>
+                                    </div>
+                                )
+                            ) : null}
+                            {/*{*/}
+                            {/*    isApplicant &&*/}
+                            {/*        alreadyApplied ? <div*/}
+                            {/*                             className="col align-content-center justify-content-center d-flex">*/}
+                            {/*                             <span>*/}
+                            {/*                                 <i style={{color: "#006400"}}*/}
+                            {/*                                    className="bi bi-check-circle-fill"*/}
+                            {/*                                    aria-hidden="true"></i> &nbsp;*/}
+                            {/*                                 <span className="fw-bolder"*/}
+                            {/*                                       style={{color: "#006400"}}>Applied</span>*/}
+                            {/*                             </span>*/}
+                            {/*                         </div>*/}
 
-                                    alreadyApplied ? <div className="col align-content-center justify-content-center d-flex">
-                                                         <span>
-                                                             <i style={{color: "#006400"}} className="bi bi-check-circle-fill"
-                                                                aria-hidden="true"></i> &nbsp;
-                                                             <span className="fw-bolder" style={{color: "#006400"}}>Applied</span>
-                                                         </span>
-                                                     </div>
-
-                                                   : <div
-                                                         className="col align-content-center justify-content-center d-flex">
-                                                         <span type="button" onClick={() => applyPostHandler({
-                                                                                        ...post,
-                                                                                        applicants: [...post.applicants,
-                                                                                                     currentUser._id],
-                                                                                    })}>
-                                                             <i style={{color: "#006400"}} className="fa fa-suitcase"
-                                                                aria-hidden="true"></i> &nbsp;
-                                                             <span className="fw-bolder" style={{color: "#006400"}}>Apply</span>
-                                                         </span>
-                                                     </div>
-                            }
+                            {/*                       : <div*/}
+                            {/*                             className="col align-content-center justify-content-center d-flex">*/}
+                            {/*                             <span type="button"*/}
+                            {/*                                   onClick={() => applyPostHandler({*/}
+                            {/*                                                                       ...post,*/}
+                            {/*                                                                       applicants: [...post.applicants,*/}
+                            {/*                                                                                    currentUser._id],*/}
+                            {/*                                                                   })}>*/}
+                            {/*                                 <i style={{color: "#006400"}}*/}
+                            {/*                                    className="fa fa-suitcase"*/}
+                            {/*                                    aria-hidden="true"></i> &nbsp;*/}
+                            {/*                                 <span className="fw-bolder"*/}
+                            {/*                                       style={{color: "#006400"}}>Apply</span>*/}
+                            {/*                             </span>*/}
+                            {/*                         </div>*/}
+                            {/*}*/}
                             {!isApplicant &&
                              <div
                                  className="col align-content-center justify-content-center d-flex">
