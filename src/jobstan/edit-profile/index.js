@@ -254,7 +254,7 @@ const EditProfileComponent = () => {
                                     <Link to="../profile">
                                         <button
                                             className="btn btn-primary rounded-pill"
-                                            onClick={() => updateProfile({
+                                            onClick={(e) => updateProfile({
                                                                              ...currentUser,
                                                                              "name": name,
                                                                              "email": email,

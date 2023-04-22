@@ -17,6 +17,7 @@ const NavigationSideBar = () => {
     const logoutHandler = () => {
         console.log("reached button hanlder");
         dispatch(logoutThunk());
+        <Navigate to={"/login"}/>
     }
 
     if (logoutComp) {

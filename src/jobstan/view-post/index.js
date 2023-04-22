@@ -53,6 +53,10 @@ const ViewPostComponent = ({route, navigate}) => {
         navigate2(`../home`);
     }
 
+    function editPostHandler() {
+        navigate2(`/edit-post`, {state: {epost: viewPost}});
+    }
+
     return (
         <>
             <div className="container">
@@ -107,6 +111,16 @@ const ViewPostComponent = ({route, navigate}) => {
                                                             <span style={{color: "#006400"}}>Apply</span>
                                                         </span>
                                                     </div>}
+
+                                                    {!isApplicant &&
+                                                     <div
+                                                         className="col align-content-center justify-content-center d-flex">
+                                                        <span type="button" onClick={editPostHandler}>
+                                                            <i style={{color: "black"}}
+                                                               className="bi bi-pencil-fill"></i> &nbsp;
+                                                            <span style={{color: "black"}}>Edit</span>
+                                                        </span>
+                                                     </div> }
 
                                                     {!isApplicant &&
                                                      <div

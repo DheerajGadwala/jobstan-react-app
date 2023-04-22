@@ -7,6 +7,7 @@ import ViewProfileComponent from "./view-profile";
 import ViewPostComponent from "./view-post";
 import FollowRecsList from "./recruiters-follow/recruiter-follow-list";
 import EditProfileComponent from "./edit-profile";
+import EditPostComponent from "./edit-post";
 import {Route, Routes} from "react-router";
 import ProtectedRoute from "./protected";
 import NavigationSideBar from "../navigation-sidebar";
@@ -51,6 +52,9 @@ function Jobstan() {
                         }/>
                         <Route path="view-post" element={
                             <ViewPostComponent/>
+                        }/>
+                        <Route path="/edit-post" element={
+                            <EditPostComponent/>
                         }/>
                     </Routes>
                 </div>
