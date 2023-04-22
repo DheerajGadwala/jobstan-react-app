@@ -10,11 +10,8 @@ import {
     registerThunk,
     getAllRecruitersThunk,
     removeFollowedRecruiter,
-<<<<<<< HEAD
     getUserThunk,
-=======
     getFilteredApplicantsThunk
->>>>>>> sai
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -28,14 +25,11 @@ const usersReducer = createSlice({
                                          currentUser: null,
                                          loading: true,
                                          profileUser: null,
-<<<<<<< HEAD
                                          clickedUser: null,
-=======
                                          searchLoading: true
                                      },
                                      reducers: {
                                         clearUsers: (state) => {state.users = []}
->>>>>>> sai
                                      },
                                      extraReducers: {
                                          [profileThunk.pending]: (state, action) => {

@@ -9,11 +9,8 @@ import {
     register,
     updateProfile,
     getRecruiters,
-<<<<<<< HEAD
     getUser,
-=======
     getFilteredApplicants
->>>>>>> sai
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
