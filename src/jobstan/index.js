@@ -10,6 +10,7 @@ import EditProfileComponent from "./edit-profile";
 import {Route, Routes} from "react-router";
 import ProtectedRoute from "./protected";
 import NavigationSideBar from "../navigation-sidebar";
+import SearchPageComponent from "./search";
 
 
 function Jobstan() {
@@ -35,7 +36,7 @@ function Jobstan() {
                     <Routes>
                         <Route index element={<HomeComponent/>}/>
                         <Route path="home" element={<HomeComponent/>}/>
-
+                        <Route path="search" element={<SearchPageComponent/>}/>
                         <Route path="/profile" element={
                             <ProtectedRoute>
                                 <ProfileComponent/>

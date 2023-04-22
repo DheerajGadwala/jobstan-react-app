@@ -16,3 +16,8 @@ export const deletePost = async (post_id) => {
     const response = await axios.delete(`${BASE_API_URL}/deletePost/${post_id}`);
     return response.data;
 }
+
+export const getFilteredPosts = async (data) => {
+    const response = await axios.get(`${BASE_API_URL}/getFilteredPosts/${data.user_id}/${data.title}/${data.company}/${data.applied}`);
+    return response.data;
+}

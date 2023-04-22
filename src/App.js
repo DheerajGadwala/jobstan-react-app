@@ -9,6 +9,7 @@ import LoginComponent from "./jobstan/login"
 import CurrentUser from './jobstan/current-user';
 import usersReducer from './jobstan/services/users-reducer';
 import postsReducer from './jobstan/services/posts-reducer';
+import SearchPageComponent from './jobstan/search';
 
 const store = configureStore({
   reducer: {
@@ -29,7 +30,6 @@ function App() {
                         <Route path="/home/*" element={<Jobstan/>}/>
                         <Route path="/login" element={<LoginComponent/>}/>
                         <Route path="/register" element={<RegisterComponent/>}/>
-
                     </Routes>
                 </div>
             </CurrentUser>

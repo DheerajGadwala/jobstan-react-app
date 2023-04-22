@@ -1,0 +1,106 @@
+import {useDispatch, useSelector} from "react-redux";
+import React, {useState} from "react";
+import {getFilteredPostsThunk} from "../services/posts-thunk";
+import {getFilteredApplicantsThunk} from '../services/users-thunk'
+
+const SearchBar = () => {
+    const {currentUser} = useSelector((state) => state.users)
+    let [title, setTitle] = useState('')
+    let [company, setCompany] = useState('');
+    let [university, setUniversity] = useState('');
+    let [major, setMajor] = useState('');
+    let [applied, setApplied] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const applyToggleHandler = (event) => {
+        setApplied(event.target.checked);
+    };
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if (!currentUser) {
+            return
+        }
+        if (currentUser.role == 'APPLICANT') {
+            dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company, applied: String(applied), user_id: currentUser._id}));
+        }
+        if (currentUser.role == 'RECRUITER') {
+            dispatch(getFilteredApplicantsThunk({university: '~'+university, major: '~'+major, user_id: currentUser._id}));
+        }
+    };
+
+    return (
+        <form>
+            {
+                currentUser && currentUser.role == "RECRUITER" ? 
+                <div>
+                <div className="row">
+                    <div className="col-5">
+                        <input type="text" value={major} placeholder="Major"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setMajor(event.target.value)}/>
+                    </div>
+                    <div className="col-5">
+                        <input type="text" value={university} placeholder="University"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setUniversity(event.target.value)}/>
+                    </div>
+                    <div className="col-2">
+                        <button
+                            className="rounded-pill btn float-end ps-3 pe-3 fw-bold text-white"
+                            style={{backgroundColor: "#006400"}}
+                            type="submit"
+                            onClick={onSubmit}>
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <div className="col-12">
+                    <hr/>
+                </div>
+            </div>
+            :
+            <></>
+            }
+            {
+                currentUser && currentUser.role == "APPLICANT" ? 
+                <div>
+                <div className="row">
+                    <div className="col-4">
+                        <input type="text" value={title} placeholder="Job Title"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setTitle(event.target.value)} required/>
+                    </div>
+                    <div className="col-4">
+                        <input type="text" value={company} placeholder="Company"
+                               className="form-control mb-2" style={{boxShadow: "none"}}
+                               onChange={(event) => setCompany(event.target.value)}
+                               required/>
+                    </div>
+                    <div className="col-2 d-flex align-content-center justify-content-center">
+                        <input type="checkbox" id="applied" name="applied" value="Applied" checked={applied} onChange={applyToggleHandler}/>
+                        <label className = "mt-2 mx-2" htmlFor="applied"> Applied</label>
+                    </div>
+                    <div className="col-2">
+                        <button
+                            className="rounded-pill btn float-end ps-3 pe-3 fw-bold text-white"
+                            style={{backgroundColor: "#006400"}}
+                            type="submit"
+                            onClick={onSubmit}>
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <div className="col-12">
+                    <hr/>
+                </div>
+            </div>
+            :
+            <></>
+            }
+        </form>
+    );
+}
+
+export default SearchBar;
