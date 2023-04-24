@@ -3,8 +3,10 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
 import {getUserThunk} from "../services/users-thunk";
+import {createBookmarkThunk, deleteBookmarkThunk, checkBookmarkThunk} from "../services/bookmarks-thunk";
 
 const PostItem = ({post}) => {
+    const {clickedUser} = useSelector((state) => state.users);
 
     function getTimeDifference(createdAt) {
         const currentDate = new Date();
@@ -63,16 +65,35 @@ const PostItem = ({post}) => {
         navigate(`/view-post`, {state: {vpost: post}});
     }
 
-    let {clickedUser} = useSelector((state) => state.users);
-    useEffect(() => {
-        if (clickedUser) {
-            dispatch(getUserThunk(post.recruiter_id))
-        }
-    }, []);
-
     function moveToViewProfile() {
-        navigate(`/view-profile`, {state: {user: clickedUser}});
+        dispatch(getUserThunk(post.recruiter_id))
+        if (clickedUser) {
+            navigate(`/view-profile`, {state: {user: clickedUser}});
+        }
     }
+
+    const {currentBookmark} = useSelector((state) => state.bookmarks);
+    const currentBookmark1 = currentBookmark;
+
+    useEffect(() => {
+        dispatch(checkBookmarkThunk(post._id+","+currentUser._id));
+    }, [])
+
+    // function bookmarkClickHandler() {
+    //     if (bookmarked && currentBookmark) {
+    //         dispatch(deleteBookmarkThunk(currentBookmark._id));
+    //     }
+    //     else {
+    //         const bookmark = {
+    //             post_id: post._id,
+    //             user_id: currentUser._id
+    //         }
+    //         dispatch(createBookmarkThunk(bookmark))
+    //     }
+    // }
+    console.log(post._id)
+    console.log(currentBookmark)
+    console.log("-------------------------------")
 
     return (
         <li className="list-group-item">
@@ -82,6 +103,14 @@ const PostItem = ({post}) => {
                         <div className="fw-bolder mb-1" style={{color: "#006400"}}>{post.title}
                             <span className="text-secondary fw-normal">
                                 &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>
+                            {isApplicant &&
+                             <span type="button" className="float-end">
+                                 {
+                                     currentBookmark1 ?
+                                     <i className="bi bi-bookmark-fill"></i> :
+                                     <i className="bi bi-bookmark"></i>
+                                 }
+                            </span> }
                         </div>
                         <div type="button" onClick={viewPost}>
                             <div className="mb-1">
@@ -134,35 +163,6 @@ const PostItem = ({post}) => {
                                     </div>
                                 )
                             ) : null}
-                            {/*{*/}
-                            {/*    isApplicant &&*/}
-                            {/*        alreadyApplied ? <div*/}
-                            {/*                             className="col align-content-center justify-content-center d-flex">*/}
-                            {/*                             <span>*/}
-                            {/*                                 <i style={{color: "#006400"}}*/}
-                            {/*                                    className="bi bi-check-circle-fill"*/}
-                            {/*                                    aria-hidden="true"></i> &nbsp;*/}
-                            {/*                                 <span className="fw-bolder"*/}
-                            {/*                                       style={{color: "#006400"}}>Applied</span>*/}
-                            {/*                             </span>*/}
-                            {/*                         </div>*/}
-
-                            {/*                       : <div*/}
-                            {/*                             className="col align-content-center justify-content-center d-flex">*/}
-                            {/*                             <span type="button"*/}
-                            {/*                                   onClick={() => applyPostHandler({*/}
-                            {/*                                                                       ...post,*/}
-                            {/*                                                                       applicants: [...post.applicants,*/}
-                            {/*                                                                                    currentUser._id],*/}
-                            {/*                                                                   })}>*/}
-                            {/*                                 <i style={{color: "#006400"}}*/}
-                            {/*                                    className="fa fa-suitcase"*/}
-                            {/*                                    aria-hidden="true"></i> &nbsp;*/}
-                            {/*                                 <span className="fw-bolder"*/}
-                            {/*                                       style={{color: "#006400"}}>Apply</span>*/}
-                            {/*                             </span>*/}
-                            {/*                         </div>*/}
-                            {/*}*/}
                             {!isApplicant &&
                              <div
                                  className="col align-content-center justify-content-center d-flex">

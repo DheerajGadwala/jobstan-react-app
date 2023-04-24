@@ -46,24 +46,21 @@ const NavigationSideBar = () => {
                     </div>
                 </div>
             </Link>
-            <Link to="../profile" className={`list-group-item list-import React from "react";
-import PostsList from "../posts/post-list";
-import UserList from "../users/user-list";
-import SearchBar from "./searchBar";
-import { useSelector } from "react-redux";
+            {currentUser ? (currentUser.role==="APPLICANT" ?
+                            <Link to="../bookmarks" className={`list-group-item list-group-item-action
+        ${active === 'bookmarks' ? 'active' : ''}`}>
+                                <div className="row">
+                                    <div className="col-1">
+                                        <i className="bi bi-bookmark-fill"></i>
+                                    </div>
+                                    <div className="col-2">
+                                        <span className="d-none d-xl-block">Bookmarks</span>
+                                    </div>
+                                </div>
+                            </Link>
+                                                           : null) : null}
 
-const SearchPageComponent = () => {
-    
-    const {currentUser} = useSelector((state) => state.users)
-    return(
-        <>
-            <SearchBar/>
-            {currentUser && currentUser.type == "APPLICANT" ? <PostsList/> : <></>}
-            {currentUser && currentUser.type == "RECRUITER" ? <UserList/> : <></>}
-        </>
-    );
-};
-export default SearchPageComponent;group-item-action
+            <Link to="../profile" className={`list-group-item
         ${active === 'profile' ? 'active' : ''}`}>
                 <div className="row">
                     <div className="col-1">

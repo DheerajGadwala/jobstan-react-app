@@ -6,7 +6,7 @@ const ViewProfileComponent = ({route, navigate}) => {
     const viewUser = location.state.user;
 
     var isApplicant = false;
-    if (viewUser.role === "APPLICANT") {
+    if (viewUser && viewUser.role === "APPLICANT") {
         isApplicant = true;
     }
     console.log(viewUser);

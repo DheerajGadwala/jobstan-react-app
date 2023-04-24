@@ -9,12 +9,14 @@ import LoginComponent from "./jobstan/login"
 import CurrentUser from './jobstan/current-user';
 import usersReducer from './jobstan/services/users-reducer';
 import postsReducer from './jobstan/services/posts-reducer';
+import bookmarksReducer from './jobstan/services/bookmarks-reducer';
 import SearchPageComponent from './jobstan/search';
 
 const store = configureStore({
   reducer: {
-    posts: postsReducer,
-    users: usersReducer
+      posts: postsReducer,
+      users: usersReducer,
+      bookmarks: bookmarksReducer
   }
 })
 

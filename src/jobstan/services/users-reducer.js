@@ -9,7 +9,6 @@ import {
     loginThunk,
     registerThunk,
     getAllRecruitersThunk,
-    removeFollowedRecruiter,
     getUserThunk,
     getFilteredApplicantsThunk
 } from "./users-thunk";
@@ -91,6 +90,7 @@ const usersReducer = createSlice({
                                          },
                                          [getUserThunk.fulfilled]: (state, action) => {
                                              state.clickedUser = action.payload;
+                                             console.log(state.clickedUser)
                                          },
                                          [getFilteredApplicantsThunk.pending]: (state, action) => {
                                             state.searchLoading = true;
