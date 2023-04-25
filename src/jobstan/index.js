@@ -12,6 +12,7 @@ import {Route, Routes} from "react-router";
 import ProtectedRoute from "./protected";
 import NavigationSideBar from "../navigation-sidebar";
 import SearchPageComponent from "./search";
+import BookmarksComponent from "./bookmarks";
 
 
 function Jobstan() {
@@ -56,6 +57,9 @@ function Jobstan() {
                         }/>
                         <Route path="/edit-post" element={
                             <EditPostComponent/>
+                        }/>
+                        <Route path="/bookmarks" element={
+                            <BookmarksComponent/>
                         }/>
                     </Routes>
                 </div>

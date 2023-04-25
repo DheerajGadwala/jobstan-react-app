@@ -14,10 +14,8 @@ export const deleteBookmark = async (bookmark_id) => {
     return response.data;
 }
 
-export const checkBookmark = async (id) => {
-    console.log("reached checkbookmark sevice func");
-    const response = await axios.get(`${BASE_API_URL}/checkBookmark/${id}`);
-    console.log("reached checkbookmark sevice func 2222");
+export const getBookmarks = async (id) => {
+    const response = await axios.get(`${BASE_API_URL}/getBookmarks`);
     return response.data;
 }
 

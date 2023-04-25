@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {
     createBookmarkThunk,
     deleteBookmarkThunk,
-    checkBookmarkThunk
+    getBookmarksThunk
     
 } from "./bookmarks-thunk";
 
@@ -10,9 +10,7 @@ const bookmarksReducer = createSlice({
                                      name: 'bookmarks',
                                      initialState: {
                                          bookmarks: [],
-                                         bookmarked: false,
                                          loading: true,
-                                         currentBookmark: null
                                      },
                                      reducers: {
                                          clearBookmarks: (state) => {state.bookmarks = []}
@@ -26,13 +24,9 @@ const bookmarksReducer = createSlice({
                                              state.bookmarks = state.bookmarks
                                                  .filter(bookmark => bookmark._id !== action.payload);
                                          },
-                                         [checkBookmarkThunk.fulfilled]: (state, action) => {
-                                             state.bookmarked = true;
-                                             state.currentBookmark = action.payload.bookmark;
-                                         },
-                                         [checkBookmarkThunk.rejected]: (state, action) => {
-                                             state.bookmarked = false;
-                                             state.currentBookmark = null;
+                                         [getBookmarksThunk.fulfilled]: (state, action) => {
+                                             state.bookmarks = action.payload;
+                                             console.log(state.bookmarks);
                                          },
                                      }
                                  })

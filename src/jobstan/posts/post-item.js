@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
 import {getUserThunk} from "../services/users-thunk";
-import {createBookmarkThunk, deleteBookmarkThunk, checkBookmarkThunk} from "../services/bookmarks-thunk";
+import {createBookmarkThunk, deleteBookmarkThunk, getBookmarksThunk} from "../services/bookmarks-thunk";
 
 const PostItem = ({post}) => {
     const {clickedUser} = useSelector((state) => state.users);
@@ -72,25 +73,40 @@ const PostItem = ({post}) => {
         }
     }
 
-    const {currentBookmark} = useSelector((state) => state.bookmarks);
-    const currentBookmark1 = currentBookmark;
 
     useEffect(() => {
-        dispatch(checkBookmarkThunk(post._id+","+currentUser._id));
+        dispatch(getBookmarksThunk());
     }, [])
 
-    // function bookmarkClickHandler() {
-    //     if (bookmarked && currentBookmark) {
-    //         dispatch(deleteBookmarkThunk(currentBookmark._id));
-    //     }
-    //     else {
-    //         const bookmark = {
-    //             post_id: post._id,
-    //             user_id: currentUser._id
-    //         }
-    //         dispatch(createBookmarkThunk(bookmark))
-    //     }
-    // }
+    const bookmarks = useSelector((state) => state.bookmarks.bookmarks);
+    const currentBookmark = bookmarks.find(
+        (bookmark) => bookmark.post_id === post._id && bookmark.user_id === currentUser._id
+    );
+
+    const [bookmarked, setBookmarked] = useState(!!currentBookmark);
+
+    useEffect(() => {
+        if (currentBookmark) {
+            setBookmarked(true);
+        } else {
+            setBookmarked(false);
+        }
+    }, [currentBookmark]);
+
+
+    function bookmarkClickHandler() {
+        if (bookmarked && currentBookmark) {
+            dispatch(deleteBookmarkThunk(currentBookmark._id));
+        }
+        else {
+            const bookmark = {
+                post_id: post._id,
+                user_id: currentUser._id
+            }
+            dispatch(createBookmarkThunk(bookmark))
+        }
+    }
+    console.log("-------------------------------")
     console.log(post._id)
     console.log(currentBookmark)
     console.log("-------------------------------")
@@ -104,9 +120,9 @@ const PostItem = ({post}) => {
                             <span className="text-secondary fw-normal">
                                 &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>
                             {isApplicant &&
-                             <span type="button" className="float-end">
+                             <span type="button" className="float-end" onClick={bookmarkClickHandler}>
                                  {
-                                     currentBookmark1 ?
+                                     bookmarked ?
                                      <i className="bi bi-bookmark-fill"></i> :
                                      <i className="bi bi-bookmark"></i>
                                  }
