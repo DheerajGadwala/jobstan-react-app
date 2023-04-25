@@ -3,7 +3,6 @@ import PostsList from "../posts/post-list";
 import CreatePost from "./createPost";
 import {useDispatch, useSelector} from "react-redux";
 import {getPostsThunk} from "../services/posts-thunk";
-import { clearPosts } from "../services/posts-reducer";
 
 const HomeComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
@@ -11,24 +10,21 @@ const HomeComponent = () => {
     if (currentUser && currentUser.role === "APPLICANT") {
         isApplicant = true;
     }
-
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // console.log(currentUser)
         if (currentUser) {
+            console.log('here')
             dispatch(getPostsThunk(currentUser._id));
-        }
-        return ()=>{
-            if (currentUser) {
-                dispatch(clearPosts());
-            }
         }
     }, [])
     
     return(
         <>
             {!isApplicant && <CreatePost/>}
-            <PostsList/>
+            <PostsList for="home"/>
         </>
     );
 };

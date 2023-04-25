@@ -1,6 +1,8 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import { getUserThunk } from "../services/users-thunk";
+import { clearClickedUser } from "../services/users-reducer";
 
 const UserItem = ({user}) => {
 
@@ -28,8 +30,12 @@ const UserItem = ({user}) => {
         }
     }
 
-    const {currentUser} = useSelector((state) => state.users);
+    const location = useLocation();
+    const isViewPostPage = location.pathname === '/view-post';
+    const isSearchPage = location.pathname === '/search';
 
+    const {currentUser, clickedUser} = useSelector((state) => state.users);
+    const navigate = useNavigate();
 
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
@@ -42,33 +48,39 @@ const UserItem = ({user}) => {
 
     const dispatch = useDispatch();
 
-    const navigate = useNavigate();
-
     function viewuser() {
-        // navigate(`/view-user`, {state: {vuser: user}});
+        navigate(`/view-profile`, {state: {user}})
     }
-    
+
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
                     <div>
-                        <div className="fw-bolder mb-1" style={{color: "#006400"}}>{user.name}
-                            <span className="text-secondary fw-normal">
-                                &nbsp;&middot;&nbsp;{user.username}</span>
-                        </div>
                         <div type="button" onClick={viewuser}>
-                            <div className="mb-1">
-                                <span className="text-secondary fw-normal">Education:</span>&nbsp;
-                                <span className="fw-normal" style={{color: "black"}}>@{user.appUniv}</span>
-                            </div>
-                            <div className="mb-1">
-                                <span className="text-secondary fw-normal">Major:</span>&nbsp;
-                                <span className="fw-normal" style={{color: "black"}}>{user.appMajor}</span>
-                            </div>
-                            <div className="text-secondary fw-normal mb-1">
-                                Skills: <span className="" style={{color: "black"}}>{user.appSkills}</span>
-                            </div>
+                            {
+                                isSearchPage ? 
+                                <>
+                                    <div className="fw-bolder mb-1" style={{color: "#006400"}}>{user.name}
+                                    </div>
+                                    <div className="mb-1">
+                                        <span className="text-secondary fw-normal">Education:</span>&nbsp;
+                                        <span className="fw-normal" style={{color: "black"}}>{user.appUniv}</span>
+                                    </div>
+                                    <div className="mb-1">
+                                        <span className="text-secondary fw-normal">Major:</span>&nbsp;
+                                        <span className="fw-normal" style={{color: "black"}}>{user.appMajor}</span>
+                                    </div>
+                                </>
+                                : <></>
+                            }
+                            {
+                                isViewPostPage ?
+                                <>
+                                    <span style={{color: "#006400"}}>{user.name}</span>
+                                </>
+                                : <></>
+                            }
                         </div>
                     </div>
                 </div>

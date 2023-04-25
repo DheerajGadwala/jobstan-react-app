@@ -22,8 +22,8 @@ const SearchPageComponent = () => {
     return(
         <>
             <SearchBar/>
-            {currentUser && currentUser.role == "APPLICANT" ? <PostsList/> : <></>}
-            {currentUser && currentUser.role == "RECRUITER" ? <UserList/> : <></>}
+            {currentUser && currentUser.role == "APPLICANT" ? <PostsList for="search"/> : <></>}
+            {currentUser && currentUser.role == "RECRUITER" ? <UserList for="search"/> : <></>}
         </>
     );
 };

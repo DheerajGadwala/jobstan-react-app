@@ -10,7 +10,8 @@ import {
     registerThunk,
     getAllRecruitersThunk,
     getUserThunk,
-    getFilteredApplicantsThunk
+    getFilteredApplicantsThunk,
+    getPostApplicantsThunk
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -19,6 +20,7 @@ const usersReducer = createSlice({
                                          users: [],
                                          pendingApplicants: [],
                                          pendingRecruiters: [],
+                                         postApplicants: [],
                                          allRecruiters: [],
                                          logoutComp: false,
                                          currentUser: null,
@@ -28,7 +30,9 @@ const usersReducer = createSlice({
                                          searchLoading: true
                                      },
                                      reducers: {
-                                        clearUsers: (state) => {state.users = []}
+                                        clearUsers: (state) => {state.users = []},
+                                        clearClickedUser: (state) => {state.clickedUser = null},
+                                        setPostApplications: (state, action) => {state.postApplicants = action.payload}
                                      },
                                      extraReducers: {
                                          [profileThunk.pending]: (state, action) => {
@@ -90,7 +94,6 @@ const usersReducer = createSlice({
                                          },
                                          [getUserThunk.fulfilled]: (state, action) => {
                                              state.clickedUser = action.payload;
-                                             console.log(state.clickedUser)
                                          },
                                          [getFilteredApplicantsThunk.pending]: (state, action) => {
                                             state.searchLoading = true;
@@ -98,8 +101,17 @@ const usersReducer = createSlice({
                                          [getFilteredApplicantsThunk.fulfilled]: (state, action) => {
                                             state.users = action.payload;
                                             state.searchLoading = false;
+                                         },
+                                         [getPostApplicantsThunk.pending]: (state, action) => {
+                                            state.loading = true;
+                                            console.log(action.payload);
+                                         },
+                                         [getPostApplicantsThunk.fulfilled]: (state, action) => {
+                                            state.loading = false;
+                                            state.postApplicants = action.payload;
+                                            console.log("here", action.payload);
                                          }
                                      }
                                  })
-export const { clearUsers } = usersReducer.actions;
+export const { clearUsers, clearClickedUser, setPostApplications } = usersReducer.actions;
 export default usersReducer.reducer

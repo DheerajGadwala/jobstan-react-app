@@ -9,6 +9,7 @@ export const createPost = async (post) => {
 
 export const getPosts = async (user_id) => {
     const response = await axios.get(`${BASE_API_URL}/getPosts/${user_id}`);
+    console.log(response.data);
     return response.data;
 }
 

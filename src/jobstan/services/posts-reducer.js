@@ -7,6 +7,7 @@ const postsReducer = createSlice({
                                      name: 'posts',
                                      initialState: {
                                         posts: [],
+                                        searchPosts: [],
                                         loading: true
                                      },
                                      reducers: {
@@ -27,7 +28,7 @@ const postsReducer = createSlice({
                                              state.loading = true;
                                          },
                                          [getFilteredPostsThunk.fulfilled]: (state, action) => {
-                                             state.posts = action.payload;
+                                             state.searchPosts = action.payload;
                                              state.loading = false
                                          },
                                          [deletePostThunk.fulfilled]: (state, action) => {

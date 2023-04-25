@@ -2,11 +2,10 @@ import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
-import {getUserThunk} from "../services/users-thunk";
+import {getUserThunk, getPostApplicantsThunk} from "../services/users-thunk";
 import {createBookmarkThunk, deleteBookmarkThunk, checkBookmarkThunk} from "../services/bookmarks-thunk";
 
 const PostItem = ({post}) => {
-    const {clickedUser} = useSelector((state) => state.users);
 
     function getTimeDifference(createdAt) {
         const currentDate = new Date();
@@ -33,7 +32,7 @@ const PostItem = ({post}) => {
         }
     }
 
-    const {currentUser} = useSelector((state) => state.users);
+    const {currentUser, clickedUser, postApplicants} = useSelector((state) => state.users);
 
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
@@ -62,14 +61,13 @@ const PostItem = ({post}) => {
     const navigate = useNavigate();
 
     function viewPost() {
-        navigate(`/view-post`, {state: {vpost: post}});
+        dispatch(getPostApplicantsThunk(post._id))
+        .then(()=>navigate(`/view-post`, {state: {vpost: post, userPosts: postApplicants}}))
+        
     }
 
     function moveToViewProfile() {
-        dispatch(getUserThunk(post.recruiter_id))
-        if (clickedUser) {
-            navigate(`/view-profile`, {state: {user: clickedUser}});
-        }
+        navigate(`/view-profile`, {state: {user: clickedUser}})
     }
 
     const {currentBookmark} = useSelector((state) => state.bookmarks);

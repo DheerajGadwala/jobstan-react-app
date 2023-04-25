@@ -28,6 +28,6 @@ export const updatePostThunk = createAsyncThunk(
 )
 
 export const getFilteredPostsThunk = createAsyncThunk(
-    'getPosts',
+    'getFilteredPosts',
     async ({title, company, applied, user_id}) => await getFilteredPosts({title, company, applied, user_id})
 )
