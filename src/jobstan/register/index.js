@@ -169,7 +169,7 @@ const RegisterComponent = () => {
                                   style={{backgroundColor: "#f0f0f0"}}>
                                 <div className="text-center">
                                     <img
-                                        src="/images/donate.jpg"
+                                        src="/images/jobs.jpg"
                                         className="img-fluid img-thumbnail rounded-circle my-3"
                                         width="200" alt="profile"/>
                                 </div>
