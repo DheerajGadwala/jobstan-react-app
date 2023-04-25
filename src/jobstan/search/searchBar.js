@@ -23,10 +23,16 @@ const SearchBar = () => {
             return
         }
         if (currentUser.role == 'APPLICANT') {
-            dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company, applied: String(applied), user_id: currentUser._id}));
+            if (company.length != 0 || title.length != 0 || applied)
+                dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company, applied: String(applied), user_id: currentUser._id}));
+            else 
+                window.alert("Please fill in the search parameters");
         }
         if (currentUser.role == 'RECRUITER') {
-            dispatch(getFilteredApplicantsThunk({university: '~'+university, major: '~'+major, user_id: currentUser._id}));
+            if (university.length != 0 || major.length != 0)
+                dispatch(getFilteredApplicantsThunk({university: '~'+university, major: '~'+major, user_id: currentUser._id}));
+            else 
+                window.alert("Please fill in the search parameters");
         }
     };
 

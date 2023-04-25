@@ -2,12 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
-import {getUserThunk} from "../services/users-thunk";
-import {
-    createBookmarkThunk,
-    deleteBookmarkThunk,
-    getBookmarksThunk
-} from "../services/bookmarks-thunk";
+import {getUserThunk, getPostApplicantsThunk} from "../services/users-thunk";
+import {createBookmarkThunk, deleteBookmarkThunk, getBookmarksThunk} from "../services/bookmarks-thunk";
 
 const PostItem = ({post}) => {
 
@@ -36,7 +32,7 @@ const PostItem = ({post}) => {
         }
     }
 
-    const {currentUser, clickedUser} = useSelector((state) => state.users);
+    const {currentUser, clickedUser, postApplicants} = useSelector((state) => state.users);
 
     let isGuest = false;
     if (!currentUser) {
@@ -70,13 +66,13 @@ const PostItem = ({post}) => {
     const navigate = useNavigate();
 
     function viewPost() {
-        navigate(`/view-post`, {state: {vpost: post}});
+        dispatch(getPostApplicantsThunk(post._id))
+        .then(()=>navigate(`/view-post`, {state: {vpost: post, userPosts: postApplicants}}))
+        
     }
 
     function moveToViewProfile() {
-        dispatch(getUserThunk(post.recruiter_id)).then(() =>
-                                                           navigate(`/view-profile`)
-        );
+        navigate(`/view-profile`, {state: {user: clickedUser}})
     }
 
     useEffect(() => {

@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {useLocation} from "react-router";
 import {useSelector, useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
+import {setPostApplications} from "../services/users-reducer";
+import UserList from "../users/user-list";
 
 
 const ViewPostComponent = ({route, navigate}) => {
-    const {currentUser} = useSelector((state) => state.users);
+    const {currentUser, postApplicants} = useSelector((state) => state.users);
     const location = useLocation();
     let viewPost = location.state.vpost;
 
@@ -51,6 +53,7 @@ const ViewPostComponent = ({route, navigate}) => {
 
     const dispatch = useDispatch();
     const navigate2 = useNavigate();
+    dispatch(setPostApplications(postApplicants));
 
     function deletePostHandler() {
         dispatch(deletePostThunk(viewPost._id));
@@ -202,6 +205,10 @@ const ViewPostComponent = ({route, navigate}) => {
                         </div>
                     </div>
                 </div>
+                <br/>
+                <span style={{color: "#006400"}} className="fw-bolder mt-1 fw-normal">Applicants</span>
+                <hr/>
+                <UserList for="view-post"/>
             </div>
         </>
     );

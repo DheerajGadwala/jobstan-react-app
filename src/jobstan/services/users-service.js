@@ -59,3 +59,9 @@ export const getFilteredApplicants = async (data) => {
     const response = await axios.get(`${BASE_API_URL}/getFilteredApplicants/${data.major}/${data.university}`);
     return response.data;
 }
+
+export const getPostApplicants = async (pid) => {
+    const response = await axios.get(`${BASE_API_URL}/getPostApplicants/${pid}`)
+    console.log(response.data);
+    return response.data;
+}

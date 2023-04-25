@@ -3,9 +3,9 @@ import PostItem from "./post-item";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router";
 
-const PostList = () => {
-    const {posts, loading} = useSelector(state => state.posts);
-
+const PostList = (props) => {
+    const {posts, searchPosts, loading} = useSelector(state => state.posts);
+    const displayPosts = props.for === "home" ? posts : props.for === "search" ? searchPosts : [];
     return (
         <ul className="list-group">
             {
@@ -15,13 +15,13 @@ const PostList = () => {
                 </li>
             }
             {
-                posts.length===0 &&
+                displayPosts.length===0 &&
                 <li className="list-group-item">
                     No Jobs found.
                 </li>
             }
             {
-                posts.map(post => <PostItem key={post._id} post={post}/>)
+                displayPosts.map(post => <PostItem key={post._id} post={post}/>)
             }
         </ul>
     );

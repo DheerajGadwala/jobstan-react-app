@@ -10,7 +10,8 @@ import {
     updateProfile,
     getRecruiters,
     getUser,
-    getFilteredApplicants
+    getFilteredApplicants,
+    getPostApplicants
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -64,6 +65,11 @@ export const getUserThunk = createAsyncThunk(
 )
 
 export const getFilteredApplicantsThunk = createAsyncThunk(
-    'getPosts',
+    'getFilteredApplicants',
     async ({major, university}) => await getFilteredApplicants({major, university})
+)
+
+export const getPostApplicantsThunk = createAsyncThunk(
+    'getPostApplicants',
+    async (pid) => await getPostApplicants(pid)
 )

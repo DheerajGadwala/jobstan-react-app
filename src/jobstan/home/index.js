@@ -11,27 +11,23 @@ const HomeComponent = () => {
     if (currentUser && currentUser.role === "APPLICANT") {
         isApplicant = true;
     }
-
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // console.log(currentUser)
         if (currentUser) {
             dispatch(getPostsThunk(currentUser._id));
         }
         else {
             dispatch(getAllPostsThunk());
         }
-        return ()=>{
-            if (currentUser) {
-                dispatch(clearPosts());
-            }
-        }
     }, [])
     
     return(
         <>
-            {currentUser && !isApplicant && <CreatePost />}
-            <PostsList/>
+            {currentUser && !isApplicant && <CreatePost/>}
+            <PostsList for="home"/>
         </>
     );
 };
