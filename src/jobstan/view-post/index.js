@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {useLocation} from "react-router";
 import {useSelector, useDispatch} from "react-redux";
-import {deletePostThunk} from "../services/posts-thunk";
 import {useNavigate} from "react-router-dom";
+import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
 
 
 const ViewPostComponent = ({route, navigate}) => {
     const {currentUser} = useSelector((state) => state.users);
     const location = useLocation();
-    const viewPost = location.state.vpost;
+    let viewPost = location.state.vpost;
+
+    var isGuest = false
+    if (!currentUser) {
+        isGuest = true;
+    }
 
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
@@ -47,14 +52,25 @@ const ViewPostComponent = ({route, navigate}) => {
     const dispatch = useDispatch();
     const navigate2 = useNavigate();
 
-
     function deletePostHandler() {
         dispatch(deletePostThunk(viewPost._id));
         navigate2(`../home`);
     }
 
+
     function editPostHandler() {
         navigate2(`/edit-post`, {state: {epost: viewPost}});
+    }
+
+    const [alreadyApplied, setAlreadyApplied] = useState(false);
+
+    function applyPostHandler(updatedPost) {
+        dispatch(updatePostThunk(updatedPost));
+        setAlreadyApplied(true);
+    }
+
+    function guestClickHandler() {
+        window.alert("Login to apply for the Job Post");
     }
 
     return (
@@ -103,34 +119,79 @@ const ViewPostComponent = ({route, navigate}) => {
                                                         <span style={{color: "#006400"}}><span
                                                             className="fw-bolder">{viewPost.applicants.length}</span>&nbsp;Applicants</span>
                                                     </div>
-                                                    {isApplicant && <div
+                                                    {isGuest && <div
                                                         className="col align-content-center justify-content-center d-flex">
-                                                        <span type="button">
-                                                            <i style={{color: "#006400"}} className="fa fa-suitcase"
+                                                        <span type="button" onClick={guestClickHandler}>
+                                                            <i style={{color: "#006400"}}
+                                                               className="fa fa-suitcase"
                                                                aria-hidden="true"></i> &nbsp;
-                                                            <span style={{color: "#006400"}}>Apply</span>
+                                                            <span
+                                                                style={{color: "#006400"}}>Apply
+                                                            </span>
                                                         </span>
                                                     </div>}
 
-                                                    {!isApplicant &&
-                                                     <div
-                                                         className="col align-content-center justify-content-center d-flex">
-                                                        <span type="button" onClick={editPostHandler}>
-                                                            <i style={{color: "black"}}
-                                                               className="bi bi-pencil-fill"></i> &nbsp;
-                                                            <span style={{color: "black"}}>Edit</span>
-                                                        </span>
-                                                     </div> }
+                                                    {isApplicant ? (
+                                                        alreadyApplied ? (
+                                                            <div
+                                                                className="col align-content-center justify-content-center d-flex">
+                                                                <span>
+                                                                    <i style={{color: "#006400"}}
+                                                                       className="bi bi-check-circle-fill"
+                                                                       aria-hidden="true"></i> &nbsp;
+                                                                    <span className="fw-bolder"
+                                                                          style={{color: "#006400"}}>Applied</span>
+                                                                </span>
+                                                            </div>
+                                                        ) : (
+                                                            <div
+                                                                className="col align-content-center justify-content-center d-flex">
+                                                                <span type="button" onClick={
+                                                                    () => applyPostHandler(
+                                                                    {
+                                                                        ...viewPost,
+                                                                        applicants: [...viewPost.applicants, currentUser._id]
+                                                                    })
+                                                                }>
+                                                                    <i style={{color: "#006400"}} className="fa fa-suitcase"
+                                                                       aria-hidden="true"></i> &nbsp;
+                                                                    <span className="fw-bolder"
+                                                                          style={{color: "#006400"}}>Apply</span>
+                                                                </span>
+                                                            </div>
+                                                        )
+                                                    ) : null}
 
-                                                    {!isApplicant &&
-                                                     <div
-                                                         className="col align-content-center justify-content-center d-flex">
-                                                        <span type="button" onClick={deletePostHandler}>
-                                                            <i style={{color: "#ff0e0e"}}
-                                                               className="bi bi-trash3-fill"></i> &nbsp;
-                                                            <span style={{color: "#ff0e0e"}}>Delete</span>
-                                                        </span>
-                                                     </div>
+                                                    {
+                                                        !isGuest && (
+                                                            <>
+                                                                {!isApplicant && (
+                                                                    <div
+                                                                        className="col align-content-center justify-content-center d-flex">
+                                                                        <span type="button"
+                                                                              onClick={editPostHandler}>
+                                                                            <i style={{color: "black"}}
+                                                                               className="bi bi-pencil-fill"></i>&nbsp;
+                                                                            <span
+                                                                                style={{color: "black"}}>Edit</span>
+                                                                        </span>
+                                                                    </div>
+                                                                )}
+
+                                                                {!isApplicant && (
+                                                                    <div
+                                                                        className="col align-content-center justify-content-center d-flex">
+                                                                        <span type="button"
+                                                                              onClick={deletePostHandler}>
+                                                                          <i style={{color: "#ff0e0e"}}
+                                                                             className="bi bi-trash3-fill"></i>&nbsp;
+                                                                            <span
+                                                                                style={{color: "#ff0e0e"}}>Delete</span>
+                                                                        </span>
+                                                                    </div>
+                                                                )}
+                                                            </>
+                                                        )
                                                     }
                                                 </div>
                                             </div>

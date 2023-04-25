@@ -1,14 +1,21 @@
 import React from "react";
 import {useLocation} from "react-router";
+import {useSelector} from "react-redux";
 
 const ViewProfileComponent = ({route, navigate}) => {
-    const location = useLocation();
-    const viewUser = location.state.user;
+    const {currentUser, clickedUser} = useSelector((state) => state.users);
+    const viewUser = clickedUser;
+    
+    var isGuest = false
+    if (!currentUser) {
+        isGuest = true;
+    }
 
     var isApplicant = false;
     if (viewUser && viewUser.role === "APPLICANT") {
         isApplicant = true;
     }
+    
     console.log(viewUser);
 
     return (
@@ -30,12 +37,12 @@ const ViewProfileComponent = ({route, navigate}) => {
                                     {isApplicant && <p
                                         className="text-muted mb-1">@{viewUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Applicant&nbsp;&nbsp;|&nbsp;&nbsp;{viewUser.appFollowing.length} Following</p>}
                                 </div>
-                                <div className="row text-muted justify-content-center">
+                                {!isGuest && <div className="row text-muted justify-content-center">
                                     <div className="col-auto">
                                         <i className="bi bi-envelope-fill"></i> &nbsp;
                                         <span>{viewUser.email}</span>
                                     </div>
-                                </div>
+                                </div> }
 
                                 {/*#Reference: https://mdbootstrap.com/docs/standard/extended/profiles*/}
                                 <div style={{display: "flex", justifyContent: "center"}}>

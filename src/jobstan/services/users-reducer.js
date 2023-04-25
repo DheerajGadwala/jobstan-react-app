@@ -90,7 +90,7 @@ const usersReducer = createSlice({
                                          },
                                          [getUserThunk.fulfilled]: (state, action) => {
                                              state.clickedUser = action.payload;
-                                             console.log(state.clickedUser)
+                                             console.log("clickedUSer in thunk"+state.clickedUser);
                                          },
                                          [getFilteredApplicantsThunk.pending]: (state, action) => {
                                             state.searchLoading = true;

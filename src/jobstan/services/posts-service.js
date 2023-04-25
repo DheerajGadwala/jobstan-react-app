@@ -26,3 +26,9 @@ export const getFilteredPosts = async (data) => {
     const response = await axios.get(`${BASE_API_URL}/getFilteredPosts/${data.user_id}/${data.title}/${data.company}/${data.applied}`);
     return response.data;
 }
+
+export const getAllPosts = async () => {
+    const response = await axios.get(`${BASE_API_URL}/getAllPosts`);
+    return response.data;
+}
+

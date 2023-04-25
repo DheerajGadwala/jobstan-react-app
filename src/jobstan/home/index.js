@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import PostsList from "../posts/post-list";
 import CreatePost from "./createPost";
 import {useDispatch, useSelector} from "react-redux";
-import {getPostsThunk} from "../services/posts-thunk";
+import {getPostsThunk, getAllPostsThunk} from "../services/posts-thunk";
 import { clearPosts } from "../services/posts-reducer";
 
 const HomeComponent = () => {
@@ -18,6 +18,9 @@ const HomeComponent = () => {
         if (currentUser) {
             dispatch(getPostsThunk(currentUser._id));
         }
+        else {
+            dispatch(getAllPostsThunk());
+        }
         return ()=>{
             if (currentUser) {
                 dispatch(clearPosts());
@@ -27,7 +30,7 @@ const HomeComponent = () => {
     
     return(
         <>
-            {!isApplicant && <CreatePost/>}
+            {currentUser && !isApplicant && <CreatePost />}
             <PostsList/>
         </>
     );

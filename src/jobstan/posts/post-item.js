@@ -1,13 +1,15 @@
-import React, {useEffect} from "react";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePostThunk, updatePostThunk} from "../services/posts-thunk";
 import {getUserThunk} from "../services/users-thunk";
-import {createBookmarkThunk, deleteBookmarkThunk, getBookmarksThunk} from "../services/bookmarks-thunk";
+import {
+    createBookmarkThunk,
+    deleteBookmarkThunk,
+    getBookmarksThunk
+} from "../services/bookmarks-thunk";
 
 const PostItem = ({post}) => {
-    const {clickedUser} = useSelector((state) => state.users);
 
     function getTimeDifference(createdAt) {
         const currentDate = new Date();
@@ -34,7 +36,12 @@ const PostItem = ({post}) => {
         }
     }
 
-    const {currentUser} = useSelector((state) => state.users);
+    const {currentUser, clickedUser} = useSelector((state) => state.users);
+
+    let isGuest = false;
+    if (!currentUser) {
+        isGuest = true;
+    }
 
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
@@ -67,21 +74,22 @@ const PostItem = ({post}) => {
     }
 
     function moveToViewProfile() {
-        dispatch(getUserThunk(post.recruiter_id))
-        if (clickedUser) {
-            navigate(`/view-profile`, {state: {user: clickedUser}});
-        }
+        dispatch(getUserThunk(post.recruiter_id)).then(() =>
+                                                           navigate(`/view-profile`)
+        );
     }
-
 
     useEffect(() => {
         dispatch(getBookmarksThunk());
     }, [])
 
     const bookmarks = useSelector((state) => state.bookmarks.bookmarks);
-    const currentBookmark = bookmarks.find(
-        (bookmark) => bookmark.post_id === post._id && bookmark.user_id === currentUser._id
-    );
+    let currentBookmark = null;
+    if (currentUser) {
+        currentBookmark = bookmarks.find(
+            (bookmark) => bookmark.post_id === post._id && bookmark.user_id === currentUser._id
+        );
+    }
 
     const [bookmarked, setBookmarked] = useState(!!currentBookmark);
 
@@ -93,12 +101,10 @@ const PostItem = ({post}) => {
         }
     }, [currentBookmark]);
 
-
     function bookmarkClickHandler() {
         if (bookmarked && currentBookmark) {
             dispatch(deleteBookmarkThunk(currentBookmark._id));
-        }
-        else {
+        } else {
             const bookmark = {
                 post_id: post._id,
                 user_id: currentUser._id
@@ -106,60 +112,111 @@ const PostItem = ({post}) => {
             dispatch(createBookmarkThunk(bookmark))
         }
     }
-    console.log("-------------------------------")
-    console.log(post._id)
-    console.log(currentBookmark)
-    console.log("-------------------------------")
+
+    function guestClickHandler() {
+        window.alert("Login to apply for the Job Post");
+    }
 
     return (
         <li className="list-group-item">
             <div className="row">
                 <div className="col">
-                    <div>
-                        <div className="fw-bolder mb-1" style={{color: "#006400"}}>{post.title}
-                            <span className="text-secondary fw-normal">
+                    {isGuest ?
+                     <div>
+                         <div className="fw-bolder mb-1" style={{color: "#006400"}}>{post.title}
+                             <span className="text-secondary fw-normal">
                                 &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>
-                            {isApplicant &&
-                             <span type="button" className="float-end" onClick={bookmarkClickHandler}>
+                         </div>
+                         <div type="button" onClick={viewPost}>
+                             <div className="mb-1">
+                                <span className="fw-normal"
+                                      style={{color: "black"}}>@{post.company}</span>
+                             </div>
+                             <div className="mb-1">
+                                 <span className="text-secondary fw-normal">Salary:</span>&nbsp;
+                                 <span className="fw-normal"
+                                       style={{color: "black"}}>{post.pay}</span>
+                             </div>
+                             <div className="text-secondary fw-normal mb-1">
+                                 Skills: <span className=""
+                                               style={{color: "black"}}>{post.skills}</span>
+                             </div>
+                         </div>
+                         <div className="text-secondary fw-normal mb-1">
+                             Posted by Recruiter: <span className="fw-bolder"
+                                                        onClick={moveToViewProfile}
+                                                        style={{color: "#006400"}}
+                                                        type="button">{post.recruiter_name}</span>
+                         </div>
+
+                         <div className="row text-muted mt-3">
+                             <div
+                                 className="col align-content-center justify-content-center d-flex">
+                                <span className="fw-bolder" style={{color: "#006400"}}><span
+                                    className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>
+                             </div>
+                             <div
+                                 className="col align-content-center justify-content-center d-flex">
+                                        <span type="button" onClick={() => guestClickHandler()
+                                        }>
+                                            <i style={{color: "#006400"}} className="fa fa-suitcase"
+                                               aria-hidden="true"></i> &nbsp;
+                                            <span className="fw-bolder"
+                                                  style={{color: "#006400"}}>Apply</span>
+                                        </span>
+                             </div>
+                         </div>
+                     </div>
+
+                             :
+
+                     <div>
+                         <div className="fw-bolder mb-1" style={{color: "#006400"}}>{post.title}
+                             <span className="text-secondary fw-normal">
+                                &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>
+                             {isApplicant &&
+                              <span type="button" className="float-end"
+                                    onClick={bookmarkClickHandler}>
                                  {
                                      bookmarked ?
                                      <i className="bi bi-bookmark-fill"></i> :
                                      <i className="bi bi-bookmark"></i>
                                  }
-                            </span> }
-                        </div>
-                        <div type="button" onClick={viewPost}>
-                            <div className="mb-1">
+                            </span>}
+                         </div>
+                         <div type="button" onClick={viewPost}>
+                             <div className="mb-1">
                                 <span className="fw-normal"
                                       style={{color: "black"}}>@{post.company}</span>
-                            </div>
-                            <div className="mb-1">
-                                <span className="text-secondary fw-normal">Salary:</span>&nbsp;
-                                <span className="fw-normal"
-                                      style={{color: "black"}}>{post.pay}</span>
-                            </div>
-                            <div className="text-secondary fw-normal mb-1">
-                                Skills: <span className=""
-                                              style={{color: "black"}}>{post.skills}</span>
-                            </div>
-                        </div>
-                        {isApplicant && <div className="text-secondary fw-normal mb-1">
-                            Posted by Recruiter: <span className="fw-bolder"
-                                                       onClick={moveToViewProfile}
-                                                       style={{color: "#006400"}}
-                                                       type="button">{post.recruiter_name}</span>
-                        </div>}
+                             </div>
+                             <div className="mb-1">
+                                 <span className="text-secondary fw-normal">Salary:</span>&nbsp;
+                                 <span className="fw-normal"
+                                       style={{color: "black"}}>{post.pay}</span>
+                             </div>
+                             <div className="text-secondary fw-normal mb-1">
+                                 Skills: <span className=""
+                                               style={{color: "black"}}>{post.skills}</span>
+                             </div>
+                         </div>
+                         {isApplicant && <div className="text-secondary fw-normal mb-1">
+                             Posted by Recruiter: <span className="fw-bolder"
+                                                        onClick={moveToViewProfile}
+                                                        style={{color: "#006400"}}
+                                                        type="button">{post.recruiter_name}</span>
+                         </div>}
 
-                        <div className="row text-muted mt-3">
-                            <div className="col align-content-center justify-content-center d-flex">
+                         <div className="row text-muted mt-3">
+                             <div
+                                 className="col align-content-center justify-content-center d-flex">
                                 <span className="fw-bolder" style={{color: "#006400"}}><span
                                     className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>
-                            </div>
+                             </div>
 
-                            {isApplicant ? (
-                                alreadyApplied ? (
-                                    <div
-                                        className="col align-content-center justify-content-center d-flex">
+                             {isApplicant ? (
+                                 alreadyApplied ? (
+                                     <div
+                                         className="col align-content-center justify-content-center d-flex">
                                         <span>
                                             <i style={{color: "#006400"}}
                                                className="bi bi-check-circle-fill"
@@ -167,30 +224,114 @@ const PostItem = ({post}) => {
                                             <span className="fw-bolder"
                                                   style={{color: "#006400"}}>Applied</span>
                                         </span>
-                                    </div>
-                                ) : (
-                                    <div
-                                        className="col align-content-center justify-content-center d-flex">
+                                     </div>
+                                 ) : (
+                                     <div
+                                         className="col align-content-center justify-content-center d-flex">
                                         <span type="button" onClick={() => applyPostHandler(
-                                            {...post, applicants: [...post.applicants, currentUser._id]})}>
-                                            <i style={{color: "#006400"}} className="fa fa-suitcase" aria-hidden="true"></i> &nbsp;
-                                            <span className="fw-bolder" style={{color: "#006400"}}>Apply</span>
+                                            {
+                                                ...post,
+                                                applicants: [...post.applicants, currentUser._id]
+                                            })}>
+                                            <i style={{color: "#006400"}} className="fa fa-suitcase"
+                                               aria-hidden="true"></i> &nbsp;
+                                            <span className="fw-bolder"
+                                                  style={{color: "#006400"}}>Apply</span>
                                         </span>
-                                    </div>
-                                )
-                            ) : null}
-                            {!isApplicant &&
-                             <div
-                                 className="col align-content-center justify-content-center d-flex">
+                                     </div>
+                                 )
+                             ) : null}
+                             {!isApplicant &&
+                              <div
+                                  className="col align-content-center justify-content-center d-flex">
                                     <span type="button" onClick={deletePostHandler}>
                                         <i style={{color: "#ff0e0e"}}
                                            className="bi bi-trash3-fill"></i> &nbsp;
                                         <span style={{color: "#ff0e0e"}}>Delete</span>
                                     </span>
-                             </div>
-                            }
-                        </div>
-                    </div>
+                              </div>
+                             }
+                         </div>
+                     </div>
+                    }
+
+
+                    {/*<div>*/}
+                    {/*    <div className="fw-bolder mb-1" style={{color: "#006400"}}>{post.title}*/}
+                    {/*        <span className="text-secondary fw-normal">*/}
+                    {/*            &nbsp;&middot;&nbsp;{getTimeDifference(estCreatedAt)}</span>*/}
+                    {/*        {isApplicant &&*/}
+                    {/*         <span type="button" className="float-end" onClick={bookmarkClickHandler}>*/}
+                    {/*             {*/}
+                    {/*                 bookmarked ?*/}
+                    {/*                 <i className="bi bi-bookmark-fill"></i> :*/}
+                    {/*                 <i className="bi bi-bookmark"></i>*/}
+                    {/*             }*/}
+                    {/*        </span> }*/}
+                    {/*    </div>*/}
+                    {/*    <div type="button" onClick={viewPost}>*/}
+                    {/*        <div className="mb-1">*/}
+                    {/*            <span className="fw-normal"*/}
+                    {/*                  style={{color: "black"}}>@{post.company}</span>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="mb-1">*/}
+                    {/*            <span className="text-secondary fw-normal">Salary:</span>&nbsp;*/}
+                    {/*            <span className="fw-normal"*/}
+                    {/*                  style={{color: "black"}}>{post.pay}</span>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="text-secondary fw-normal mb-1">*/}
+                    {/*            Skills: <span className=""*/}
+                    {/*                          style={{color: "black"}}>{post.skills}</span>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    {isApplicant && <div className="text-secondary fw-normal mb-1">*/}
+                    {/*        Posted by Recruiter: <span className="fw-bolder"*/}
+                    {/*                                   onClick={moveToViewProfile}*/}
+                    {/*                                   style={{color: "#006400"}}*/}
+                    {/*                                   type="button">{post.recruiter_name}</span>*/}
+                    {/*    </div>}*/}
+
+                    {/*    <div className="row text-muted mt-3">*/}
+                    {/*        <div className="col align-content-center justify-content-center d-flex">*/}
+                    {/*            <span className="fw-bolder" style={{color: "#006400"}}><span*/}
+                    {/*                className="fw-bolder">{post.applicants.length}</span>&nbsp;Applicants</span>*/}
+                    {/*        </div>*/}
+
+                    {/*        {isApplicant ? (*/}
+                    {/*            alreadyApplied ? (*/}
+                    {/*                <div*/}
+                    {/*                    className="col align-content-center justify-content-center d-flex">*/}
+                    {/*                    <span>*/}
+                    {/*                        <i style={{color: "#006400"}}*/}
+                    {/*                           className="bi bi-check-circle-fill"*/}
+                    {/*                           aria-hidden="true"></i> &nbsp;*/}
+                    {/*                        <span className="fw-bolder"*/}
+                    {/*                              style={{color: "#006400"}}>Applied</span>*/}
+                    {/*                    </span>*/}
+                    {/*                </div>*/}
+                    {/*            ) : (*/}
+                    {/*                <div*/}
+                    {/*                    className="col align-content-center justify-content-center d-flex">*/}
+                    {/*                    <span type="button" onClick={() => applyPostHandler(*/}
+                    {/*                        {...post, applicants: [...post.applicants, currentUser._id]})}>*/}
+                    {/*                        <i style={{color: "#006400"}} className="fa fa-suitcase" aria-hidden="true"></i> &nbsp;*/}
+                    {/*                        <span className="fw-bolder" style={{color: "#006400"}}>Apply</span>*/}
+                    {/*                    </span>*/}
+                    {/*                </div>*/}
+                    {/*            )*/}
+                    {/*        ) : null}*/}
+                    {/*        {!isApplicant &&*/}
+                    {/*         <div*/}
+                    {/*             className="col align-content-center justify-content-center d-flex">*/}
+                    {/*                <span type="button" onClick={deletePostHandler}>*/}
+                    {/*                    <i style={{color: "#ff0e0e"}}*/}
+                    {/*                       className="bi bi-trash3-fill"></i> &nbsp;*/}
+                    {/*                    <span style={{color: "#ff0e0e"}}>Delete</span>*/}
+                    {/*                </span>*/}
+                    {/*         </div>*/}
+                    {/*        }*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </li>

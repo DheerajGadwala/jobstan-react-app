@@ -3,7 +3,6 @@ import {
     createBookmarkThunk,
     deleteBookmarkThunk,
     getBookmarksThunk
-    
 } from "./bookmarks-thunk";
 
 const bookmarksReducer = createSlice({
@@ -26,7 +25,6 @@ const bookmarksReducer = createSlice({
                                          },
                                          [getBookmarksThunk.fulfilled]: (state, action) => {
                                              state.bookmarks = action.payload;
-                                             console.log(state.bookmarks);
                                          },
                                      }
                                  })

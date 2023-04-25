@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-    createPostThunk, getPostsThunk, deletePostThunk, updatePostThunk, getFilteredPostsThunk
+    createPostThunk, getPostsThunk, deletePostThunk, updatePostThunk, getFilteredPostsThunk, getAllPostsThunk
 } from "./posts-thunk";
 
 const postsReducer = createSlice({
@@ -22,7 +22,11 @@ const postsReducer = createSlice({
                                          [getPostsThunk.fulfilled]: (state, action) => {
                                              state.posts = action.payload;
                                              state.loading = false;
-                                             }, 
+                                             },
+                                         [getAllPostsThunk.fulfilled]: (state, action) => {
+                                             state.posts = action.payload;
+                                             state.loading = false;
+                                         },
                                          [getFilteredPostsThunk.pending]: (state, action) => {
                                              state.loading = true;
                                          },

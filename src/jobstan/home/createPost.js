@@ -13,7 +13,7 @@ const CreatePost = () => {
 
     const onSubmit = () => {
         if (!currentUser) {
-            window.alert("Login to create a request");
+            window.alert("Login to create a Job Post");
             return
         }
         const newPost = {
