@@ -137,7 +137,7 @@ const AdminComponent = () => {
                 <input
                     type="button"
                     className="btn btn-color text-white w-100"
-                    style={{backgroundColor: "#e73936"}}
+                    style={{backgroundColor: "#006400"}}
                     onClick={logoutBtnHandle}
                     value="Logout"
                 >

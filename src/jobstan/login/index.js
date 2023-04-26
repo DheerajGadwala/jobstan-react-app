@@ -34,7 +34,7 @@ const LoginComponent = () => {
                     <div className="col-md-6 m-auto">
                         <div className="card my-5">
                             <form className="card-body p-lg-4"
-                                  style={{backgroundColor: "#F0F0F0"}}>
+                                  style={{backgroundColor: "#FBFDFB"}}>
                                 <div className="text-center">
                                     <img
                                         src="/images/jobs.jpg"
@@ -64,7 +64,7 @@ const LoginComponent = () => {
                                     <input
                                         type="button"
                                         className="btn btn-color px-5 mb-3 w-100 text-white"
-                                        style={{backgroundColor: "#E7473C"}}
+                                        style={{backgroundColor: "#006400"}}
                                         onClick={loginBtnHandle}
                                         value="Login"
                                     >
@@ -73,13 +73,13 @@ const LoginComponent = () => {
                                 <div id="log-reg"
                                      className="form-text text-center mb-3 text-dark">
                                     <a href="/register" className="fw-bold text-decoration-none"
-                                       style={{color: "#E7473C"}}>
+                                       style={{color: "#006400"}}>
                                         Don't have an account? Register</a>
                                 </div>
                                 <div id="log-guest"
                                      className="form-text text-center mb-3 text-dark">
                                     <a href="/home" className="fw-bold text-decoration-none"
-                                       style={{color: "#E7473C"}}>Continue as Guest</a>
+                                       style={{color: "#006400"}}>Continue as Guest</a>
                                 </div>
                             </form>
                         </div>

@@ -9,6 +9,10 @@ import { useDispatch ,useSelector } from "react-redux";
 const SearchPageComponent = () => {
     
     const {currentUser} = useSelector((state) => state.users)
+    var isGuest = false;
+    if (!currentUser) {
+        isGuest = true;
+    }
 
     // const dispatch = useDispatch();
 
@@ -22,6 +26,7 @@ const SearchPageComponent = () => {
     return(
         <>
             <SearchBar/>
+            {isGuest && <PostsList for="search"/>}
             {currentUser && currentUser.role == "APPLICANT" ? <PostsList for="search"/> : <></>}
             {currentUser && currentUser.role == "RECRUITER" ? <UserList for="search"/> : <></>}
         </>

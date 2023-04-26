@@ -11,6 +11,11 @@ const SearchBar = () => {
     let [major, setMajor] = useState('');
     let [applied, setApplied] = useState(false);
 
+    var isGuest = false;
+    if (!currentUser) {
+        isGuest = true;
+    }
+
     const dispatch = useDispatch();
 
     const applyToggleHandler = (event) => {
@@ -20,20 +25,26 @@ const SearchBar = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         if (!currentUser) {
-            return
-        }
-        if (currentUser.role == 'APPLICANT') {
-            if (company.length != 0 || title.length != 0 || applied)
-                dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company, applied: String(applied), user_id: currentUser._id}));
-            else 
+            if (company.length != 0 || title.length != 0)
+                dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company}));
+            else
                 window.alert("Please fill in the search parameters");
         }
-        if (currentUser.role == 'RECRUITER') {
-            if (university.length != 0 || major.length != 0)
-                dispatch(getFilteredApplicantsThunk({university: '~'+university, major: '~'+major, user_id: currentUser._id}));
-            else 
-                window.alert("Please fill in the search parameters");
+        else {
+            if (currentUser.role == 'APPLICANT') {
+                if (company.length != 0 || title.length != 0 || applied)
+                    dispatch(getFilteredPostsThunk({title: '~'+title, company: '~'+company, applied: String(applied), user_id: currentUser._id}));
+                else
+                    window.alert("Please fill in the search parameters");
+            }
+            if (currentUser.role == 'RECRUITER') {
+                if (university.length != 0 || major.length != 0)
+                    dispatch(getFilteredApplicantsThunk({university: '~'+university, major: '~'+major, user_id: currentUser._id}));
+                else
+                    window.alert("Please fill in the search parameters");
+            }
         }
+
     };
 
     return (
@@ -104,6 +115,39 @@ const SearchBar = () => {
             </div>
             :
             <></>
+            }
+
+            {
+                isGuest ?
+                <div>
+                    <div className="row">
+                        <div className="col-5">
+                            <input type="text" value={title} placeholder="Job Title"
+                                   className="form-control mb-2" style={{boxShadow: "none"}}
+                                   onChange={(event) => setTitle(event.target.value)} required/>
+                        </div>
+                        <div className="col-5">
+                            <input type="text" value={company} placeholder="Company"
+                                   className="form-control mb-2" style={{boxShadow: "none"}}
+                                   onChange={(event) => setCompany(event.target.value)}
+                                   required/>
+                        </div>
+                        <div className="col-2">
+                            <button
+                                className="rounded-pill btn float-end ps-3 pe-3 fw-bold text-white"
+                                style={{backgroundColor: "#006400"}}
+                                type="submit"
+                                onClick={onSubmit}>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div className="col-12">
+                        <hr/>
+                    </div>
+                </div>
+                                                               :
+                <></>
             }
         </form>
     );

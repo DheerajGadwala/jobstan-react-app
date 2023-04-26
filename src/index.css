@@ -20,3 +20,9 @@ code {
   width: auto !important;
   min-width: 100px !important;
 }
+
+.list-group-item.active.bg-success {
+  background-color: #006400;
+  border-color: #006400;
+  color: #fff;
+}

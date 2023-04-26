@@ -25,7 +25,7 @@ const NavigationSideBar = () => {
     return (
         <div className="list-group">
             <Link to="../home" className={`list-group-item list-group-item-action
-        ${active === 'home' ? 'active' : ''}`}>
+        ${active === 'home' ? 'active bg-success' : ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="bi bi-house-door-fill"></i>
@@ -36,7 +36,7 @@ const NavigationSideBar = () => {
                 </div>
             </Link>
             <Link to="../search" className={`list-group-item list-group-item-action
-        ${active === 'search' ? 'active' : ''}`}>
+        ${active === 'search' ? 'active bg-success' : ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="bi bi-search"></i>
@@ -48,7 +48,7 @@ const NavigationSideBar = () => {
             </Link>
             {currentUser ? (currentUser.role==="APPLICANT" ?
                             <Link to="../bookmarks" className={`list-group-item list-group-item-action
-        ${active === 'bookmarks' ? 'active' : ''}`}>
+        ${active === 'bookmarks' ? 'active bg-success' : ''}`}>
                                 <div className="row">
                                     <div className="col-1">
                                         <i className="bi bi-bookmark-fill"></i>
@@ -61,7 +61,7 @@ const NavigationSideBar = () => {
                                                            : null) : null}
 
             <Link to="../profile" className={`list-group-item
-        ${active === 'profile' ? 'active' : ''}`}>
+        ${active === 'profile' ? 'active bg-success' : ''}`}>
                 <div className="row">
                     <div className="col-1">
                         <i className="bi bi-person-fill"></i>
@@ -82,7 +82,7 @@ const NavigationSideBar = () => {
                 </div>
             </Link>}
             {!currentUser && <Link to="../login" className={`list-group-item list-group-item-action
-        ${active === 'login' ? 'active' : ''}`}>
+        ${active === 'login' ? 'active bg-success' : ''}`}>
             <div className="row">
                 <div className="col-1">
                     <i className="bi bi-door-open-fill"></i>
@@ -93,7 +93,7 @@ const NavigationSideBar = () => {
             </div>
         </Link>}
             {!currentUser && <Link to="../register" className={`list-group-item list-group-item-action
-        ${active === 'register' ? 'active' : ''}`}>
+        ${active === 'register' ? 'active bg-success' : ''}`}>
             <div className="row">
                 <div className="col-1">
                     <i className="bi bi-book-fill"></i>

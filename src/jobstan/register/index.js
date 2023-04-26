@@ -166,7 +166,7 @@ const RegisterComponent = () => {
                     <div className="col-md-6 m-auto">
                         <div className="card my-5">
                             <form className="card-body p-lg-4"
-                                  style={{backgroundColor: "#f0f0f0"}}>
+                                  style={{backgroundColor: "#FBFDFB"}}>
                                 <div className="text-center">
                                     <img
                                         src="/images/jobs.jpg"
@@ -401,7 +401,7 @@ const RegisterComponent = () => {
                                     <input
                                         type="button"
                                         className="btn btn-color px-5 mb-3 w-100 text-white"
-                                        style={{backgroundColor: "#E7473C"}}
+                                        style={{backgroundColor: "#006400"}}
                                         onClick={handleRegisterBtn}
                                         value="Register"
                                     >
@@ -411,7 +411,7 @@ const RegisterComponent = () => {
                                      className="form-text text-center mb-3 text-dark">Already
                                     Registered?&nbsp;
                                     <a href="../login" className="fw-bold text-decoration-none"
-                                       style={{color: "#E7473C"}}> Login</a>
+                                       style={{color: "#006400"}}> Login</a>
                                 </div>
                             </form>
                         </div>

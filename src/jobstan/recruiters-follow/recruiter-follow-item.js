@@ -29,7 +29,7 @@ const RecruiterFollowItem = ({followRec, currentUser}) => {
                                                                               followRec._id],
                                                          })}
                             className="btn btn-primary rounded-pill float-end mt-1"
-                            style ={{backgroundColor: "#006400"}}
+                            style ={{backgroundColor: "#006400", borderColor:"#006400"}}
                     >Follow
                     </button>
                 </div>
