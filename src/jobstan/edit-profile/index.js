@@ -62,7 +62,7 @@ const EditProfileComponent = () => {
             <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-md-12 col-xl-12">
                     <div className="card"
-                         style={{borderRadius: "10px", backgroundColor: "#f0f0f0"}}>
+                         style={{borderRadius: "10px", backgroundColor: "#FBFDFB"}}>
                         <div className="card-body text-center">
                             <div>
                                 <h3 className="fw-bold">Edit Profile</h3>
@@ -250,9 +250,10 @@ const EditProfileComponent = () => {
                                         </ul>
                                     </div>
                                 }
-                                <div className="text-center" >
+                                <div className="text-center mt-4" >
                                     <Link to="../profile">
                                         <button
+                                            style ={{backgroundColor: "#006400", borderColor:"#006400"}}
                                             className="btn btn-primary rounded-pill"
                                             onClick={(e) => updateProfile({
                                                                              ...currentUser,
@@ -270,8 +271,8 @@ const EditProfileComponent = () => {
                                         </button>
                                     </Link>
                                 </div >
-                                <div className="mt-3">
-                                    <Link className="text-centre" to="../profile">
+                                <div className="mt-3" >
+                                    <Link className="text-centre" style ={{color: "#006400"}} to="../profile">
                                         Go back to Profile
                                     </Link>
                                 </div>

@@ -88,7 +88,7 @@ const ProfileComponent = () => {
                                 <Link to="../edit-profile">
                                     <button
                                         className="btn btn-primary rounded-pill mt-2 margin-right-left"
-                                        style={{backgroundColor: "#006400"}}
+                                        style ={{backgroundColor: "#006400", borderColor:"#006400"}}
                                         > Edit
                                         Profile
                                     </button>
