@@ -11,7 +11,8 @@ import {
     getAllRecruitersThunk,
     getUserThunk,
     getFilteredApplicantsThunk,
-    getPostApplicantsThunk
+    getPostApplicantsThunk,
+    getFollowingRecsThunk
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -22,6 +23,7 @@ const usersReducer = createSlice({
                                          pendingRecruiters: [],
                                          postApplicants: [],
                                          allRecruiters: [],
+                                         followRecruiters: [],
                                          logoutComp: false,
                                          currentUser: null,
                                          loading: true,
@@ -78,6 +80,9 @@ const usersReducer = createSlice({
                                          },
                                          [getAllRecruitersThunk.fulfilled]: (state, action) => {
                                              state.allRecruiters = action.payload;
+                                         },
+                                         [getFollowingRecsThunk.fulfilled]: (state, action) => {
+                                             state.followRecruiters = action.payload;
                                          },
                                          [approveUserThunk.fulfilled]: (state, action) => {
                                              state.pendingApplicants = state.pendingApplicants

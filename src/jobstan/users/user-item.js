@@ -33,6 +33,7 @@ const UserItem = ({user}) => {
     const location = useLocation();
     const isViewPostPage = location.pathname === '/view-post';
     const isSearchPage = location.pathname === '/search';
+    const isProfilePage = location.pathname === '/profile';
 
     const {currentUser, clickedUser} = useSelector((state) => state.users);
     const navigate = useNavigate();
@@ -81,6 +82,13 @@ const UserItem = ({user}) => {
                                     <span style={{color: "#006400"}}>{user.name}</span>
                                 </>
                                 : <></>
+                            }
+                            {
+                                isProfilePage ?
+                                <>
+                                    <span style={{color: "#006400"}}>{user.name}</span>
+                                </>
+                                               : <></>
                             }
                         </div>
                     </div>

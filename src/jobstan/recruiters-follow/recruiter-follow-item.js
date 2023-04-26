@@ -20,7 +20,7 @@ const RecruiterFollowItem = ({followRec, currentUser}) => {
             <div className="row">
                 <div className="col-10">
                     <div className="fw-bold" type="button" onClick={moveToViewProfile}>{followRec.name}</div>
-                    <div>Recruiter @{followRec.recComp}</div>
+                    <div className="d-none d-xxl-block" >Recruiter @{followRec.recComp}</div>
                 </div>
                 <div className="col-2">
                     <button onClick={() => updateProfile({

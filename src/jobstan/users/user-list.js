@@ -3,11 +3,12 @@ import UserItem from "./user-item";
 import {useSelector} from "react-redux";
 
 const UserList = (props) => {
-    const {users, postApplicants, loading} = useSelector(state => state.users)
-    const displayUsers = props.for == "search" ? users : 
-    props.for == "view-post" ? postApplicants : 
+    const {users, postApplicants, loading, followRecruiters} = useSelector(state => state.users)
+    const displayUsers = props.for == "search" ? users :
+                         props.for == "profile" ? followRecruiters :
+                         props.for == "view-post" ? postApplicants : 
     [];
-    console.log(props, displayUsers, postApplicants);
+    console.log(displayUsers.length);
     return (
         <ul className="list-group">
             {

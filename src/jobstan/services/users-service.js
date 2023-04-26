@@ -49,6 +49,11 @@ export const getRecruiters = async (uid) => {
     return response.data;
 }
 
+export const getFollowRecruiters = async (uid) => {
+    const response = await axios.get(`${BASE_API_URL}/getFollowRecruiters/${uid}`);
+    return response.data;
+}
+
 export const getUser = async (uid) => {
     console.log("reached getuser service");
     const response = await axios.get(`${BASE_API_URL}/getUser/${uid}`);

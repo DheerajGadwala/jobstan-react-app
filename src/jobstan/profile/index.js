@@ -1,6 +1,9 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import UserList from "../users/user-list";
+import {useDispatch} from "react-redux";
+import {getFollowingRecsThunk} from "../services/users-thunk";
 
 const ProfileComponent = () => {
     const {currentUser} = useSelector((state) => state.users);
@@ -8,6 +11,19 @@ const ProfileComponent = () => {
     var isApplicant = false;
     if (currentUser && currentUser.role === "APPLICANT") {
         isApplicant = true;
+    }
+
+    const dispatch = useDispatch();
+
+    function displayFollowers() {
+        const followersList = document.getElementById('followers-list');
+        if (followersList.style.display==='none') {
+            dispatch(getFollowingRecsThunk(currentUser._id));
+            followersList.style.display = 'block';
+        }
+        else {
+            followersList.style.display = 'none';
+        }
     }
 
     return (
@@ -25,7 +41,7 @@ const ProfileComponent = () => {
                                         style={{width: "150px"}}/>
                                     <h5 className="my-3">{currentUser.name}</h5>
                                     {!isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Recruiter</p>}
-                                    {isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Applicant&nbsp;&nbsp;|&nbsp;&nbsp;{currentUser.appFollowing.length} Following</p>}
+                                    {isApplicant && <p className="text-muted mb-1">@{currentUser.username}&nbsp;&nbsp;|&nbsp;&nbsp;Applicant&nbsp;&nbsp;|&nbsp;&nbsp;<span type="button" style ={{color: "#006400"}} onClick={displayFollowers}>{currentUser.appFollowing.length} Following</span></p>}
                                 </div>
                                 <div className="row text-muted justify-content-center">
                                     <div className="col-auto">
@@ -85,14 +101,19 @@ const ProfileComponent = () => {
                                     </div>
                                 </div>
 
+                                <div id="followers-list" style={{display: "none"}}>
+                                    <h5 style ={{color: "#006400"}}>Following</h5>
+                                    <UserList for="profile"/>
+                                </div>
                                 <Link to="../edit-profile">
                                     <button
-                                        className="btn btn-primary rounded-pill mt-2 margin-right-left"
+                                        className="btn btn-primary rounded-pill mt-2 mb-3 margin-right-left"
                                         style ={{backgroundColor: "#006400", borderColor:"#006400"}}
                                         > Edit
                                         Profile
                                     </button>
                                 </Link>
+
                             </div>
                         </div>
                     </div>

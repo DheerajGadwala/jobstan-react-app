@@ -24,6 +24,17 @@ const NavigationSideBar = () => {
 
     return (
         <div className="list-group">
+            <Link className={`list-group-item list-group-item-action`}>
+                <div className="row">
+                    <div className="col-1">
+                        <i style={{color: "#006400"}} className="fa fa-suitcase"
+                           aria-hidden="true"></i>
+                    </div>
+                    <div className="col-2">
+                        <h5 className="fw-bolder d-none d-xl-block" style={{color: "#006400"}}>JobStan</h5>
+                    </div>
+                </div>
+            </Link>
             <Link to="../home" className={`list-group-item list-group-item-action
         ${active === 'home' ? 'active bg-success' : ''}`}>
                 <div className="row">
